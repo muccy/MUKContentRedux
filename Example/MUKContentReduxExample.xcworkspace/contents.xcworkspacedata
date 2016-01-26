@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:../Pod"
+      name = "Pod">
+      <FileRef
+         location = "group:MUKContentRedux.h">
+      </FileRef>
+      <Group
+         location = "group:Action"
+         name = "Action">
+         <FileRef
+            location = "group:MUKContentAction.h">
+         </FileRef>
+         <FileRef
+            location = "group:MUKContentAction.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Content"
+         name = "Content">
+         <FileRef
+            location = "group:MUKContent.h">
+         </FileRef>
+         <FileRef
+            location = "group:MUKContent.m">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:Store"
+         name = "Store">
+         <FileRef
+            location = "group:MUKContentStore.h">
+         </FileRef>
+         <FileRef
+            location = "group:MUKContentStore.m">
+         </FileRef>
+      </Group>
+   </Group>
+   <FileRef
+      location = "group:MUKContentReduxExample.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

@@ -1,0 +1,4 @@
+pod "MUKContentRedux", :path => "../"
+pod 'MUKContentFetch'
+pod 'MUKDataSource'
+pod 'MUKPullToRevealControl'
