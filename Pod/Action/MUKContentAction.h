@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol MUKContentActionCreator <MUKContentAction>
 @required
-- (nullable __kindof id<MUKContentAction>)actionForContent:(nullable __kindof id<MUKContent>) content store:(MUKContentStore *)store;
+- (nullable __kindof id<MUKContentAction>)actionForContent:(nullable __kindof id<MUKContent>)content store:(MUKContentStore *)store;
 @end
 
 NS_ASSUME_NONNULL_END
