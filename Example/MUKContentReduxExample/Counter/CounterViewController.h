@@ -1,15 +1,13 @@
 //
-//  ViewController.h
+//  CounterViewController.h
 //  MUKContentReduxExample
 //
-//  Created by Marco on 26/01/16.
+//  Created by Marco on 27/01/16.
 //  Copyright © 2016 MeLive. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface CounterViewController : UIViewController
 
 @end
-

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '51EAA29E8EE6229D722F028B'
+               BlueprintIdentifier = '107647D2B57FEE12CF0D89A0'
                BlueprintName = 'MUKContentRedux'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libMUKContentRedux.a'>

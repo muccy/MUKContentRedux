@@ -8,9 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- The immutable content state
- */
+/// The immutable content state
 @protocol MUKContent <NSObject>
-
 @end

@@ -9,12 +9,13 @@
 /* Begin PBXBuildFile section */
 		06CA01421C57CA000062B924 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01411C57CA000062B924 /* main.m */; };
 		06CA01451C57CA000062B924 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01441C57CA000062B924 /* AppDelegate.m */; };
-		06CA01481C57CA000062B924 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01471C57CA000062B924 /* ViewController.m */; };
 		06CA014B1C57CA000062B924 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06CA01491C57CA000062B924 /* Main.storyboard */; };
 		06CA014D1C57CA000062B924 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06CA014C1C57CA000062B924 /* Assets.xcassets */; };
 		06CA01501C57CA000062B924 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06CA014E1C57CA000062B924 /* LaunchScreen.storyboard */; };
 		06CA015B1C57CA000062B924 /* MUKContentReduxExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA015A1C57CA000062B924 /* MUKContentReduxExampleTests.m */; };
 		06CA01671C58BC320062B924 /* TestRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01661C58BC320062B924 /* TestRedux.m */; };
+		06CA016B1C58BF5F0062B924 /* CounterRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA016A1C58BF5F0062B924 /* CounterRedux.m */; };
+		06CA016E1C58C4290062B924 /* CounterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA016D1C58C4290062B924 /* CounterViewController.m */; };
 		11378457610909CB08B38CE6 /* libPods-MUKContentReduxExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2AF1FAB528B3397136F4AF /* libPods-MUKContentReduxExampleTests.a */; };
 		A224F8F0F93AE1B1DC9E28C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D638BB2D934005D01D7089 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -34,8 +35,6 @@
 		06CA01411C57CA000062B924 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		06CA01431C57CA000062B924 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		06CA01441C57CA000062B924 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		06CA01461C57CA000062B924 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		06CA01471C57CA000062B924 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		06CA014A1C57CA000062B924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		06CA014C1C57CA000062B924 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		06CA014F1C57CA000062B924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -45,6 +44,10 @@
 		06CA015C1C57CA000062B924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06CA01651C58BC320062B924 /* TestRedux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestRedux.h; sourceTree = "<group>"; };
 		06CA01661C58BC320062B924 /* TestRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRedux.m; sourceTree = "<group>"; };
+		06CA01691C58BF5F0062B924 /* CounterRedux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounterRedux.h; sourceTree = "<group>"; };
+		06CA016A1C58BF5F0062B924 /* CounterRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterRedux.m; sourceTree = "<group>"; };
+		06CA016C1C58C4290062B924 /* CounterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounterViewController.h; sourceTree = "<group>"; };
+		06CA016D1C58C4290062B924 /* CounterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterViewController.m; sourceTree = "<group>"; };
 		467DEC05E8515E9C5149712F /* Pods-MUKContentReduxExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		49674A7DC2F00F6DBBD4C1D3 /* Pods-MUKContentReduxExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		74D638BB2D934005D01D7089 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,8 +101,7 @@
 			children = (
 				06CA01431C57CA000062B924 /* AppDelegate.h */,
 				06CA01441C57CA000062B924 /* AppDelegate.m */,
-				06CA01461C57CA000062B924 /* ViewController.h */,
-				06CA01471C57CA000062B924 /* ViewController.m */,
+				06CA01681C58BF480062B924 /* Counter */,
 				06CA01491C57CA000062B924 /* Main.storyboard */,
 				06CA014C1C57CA000062B924 /* Assets.xcassets */,
 				06CA014E1C57CA000062B924 /* LaunchScreen.storyboard */,
@@ -126,6 +128,17 @@
 				06CA015C1C57CA000062B924 /* Info.plist */,
 			);
 			path = MUKContentReduxExampleTests;
+			sourceTree = "<group>";
+		};
+		06CA01681C58BF480062B924 /* Counter */ = {
+			isa = PBXGroup;
+			children = (
+				06CA01691C58BF5F0062B924 /* CounterRedux.h */,
+				06CA016A1C58BF5F0062B924 /* CounterRedux.m */,
+				06CA016C1C58C4290062B924 /* CounterViewController.h */,
+				06CA016D1C58C4290062B924 /* CounterViewController.m */,
+			);
+			path = Counter;
 			sourceTree = "<group>";
 		};
 		47A22B3A2684D91A6573F604 /* Frameworks */ = {
@@ -347,9 +360,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				06CA01481C57CA000062B924 /* ViewController.m in Sources */,
 				06CA01451C57CA000062B924 /* AppDelegate.m in Sources */,
+				06CA016E1C58C4290062B924 /* CounterViewController.m in Sources */,
 				06CA01421C57CA000062B924 /* main.m in Sources */,
+				06CA016B1C58BF5F0062B924 /* CounterRedux.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

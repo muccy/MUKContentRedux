@@ -14,16 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MUKContentAction <NSObject>
 @end
 
-#ifndef MUK_DECLARE_EMPTY_ACTION
-/// An handy macro to declare an empty basilar action with given name
-#define MUK_DECLARE_BASE_ACTION(name)  \
-@interface #name : NSObject <MUKContentAction> \
-@end\
-\
-@implementation #name \
-@end
-#endif
-
 @class MUKContentStore;
 @protocol MUKContent;
 /**
