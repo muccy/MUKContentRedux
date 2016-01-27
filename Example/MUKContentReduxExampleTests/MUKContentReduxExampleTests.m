@@ -7,21 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <MUKContentRedux/MUKContentRedux.h>
-
-@interface IdentityReducer : NSObject <MUKContentReducer>
-@end
-
-@implementation IdentityReducer
-
-- (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
-{
-    return oldContent;
-}
-
-@end
-
-#pragma mark -
+#import "TestRedux.h"
 
 @interface MUKContentReduxExampleTests : XCTestCase
 @end
@@ -29,9 +15,76 @@
 @implementation MUKContentReduxExampleTests
 
 - (void)testInitialization {
-    IdentityReducer *const reducer = [[IdentityReducer alloc] init];
+    Reducer *const reducer = [[Reducer alloc] init];
     MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:reducer];
     XCTAssertEqualObjects(reducer, store.reducer);
+    XCTAssertNil(store.content);
+}
+
+- (void)testDispatch {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+    
+    id const newContent = @"Hello";
+    SetContentAction *const action = [[SetContentAction alloc] initWithContent:newContent];
+    id<MUKContentAction> const dispatchedAction = [store dispatch:action];
+    
+    XCTAssertEqualObjects(action, dispatchedAction);
+    XCTAssertEqualObjects(store.content, newContent);
+}
+
+- (void)testDispatchWithCreator {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+
+    id const newContent = @"Hello";
+    SetContentAction *const action = [[SetContentAction alloc] initWithContent:newContent];
+    
+    id<MUKContentAction> const dispatchedAction = [store dispatchActionCreator:^id<MUKContentAction> _Nullable(id<MUKContent>  _Nullable content, MUKContentStore * _Nonnull s)
+    {
+        XCTAssertEqualObjects(store, s);
+        XCTAssertNil(content);
+        return action;
+    }];
+    
+    XCTAssertEqualObjects(action, dispatchedAction);
+    XCTAssertEqualObjects(store.content, newContent);
+}
+
+- (void)testSubscribe {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+
+    id const newContent = @"Hello";
+    SetContentAction *const action = [[SetContentAction alloc] initWithContent:newContent];
+    
+    __block BOOL blockCalled = NO;
+    id const token = [store subscribe:^(id<MUKContent> _Nullable oldContent, id<MUKContent> _Nullable c)
+    {
+        XCTAssertNil(oldContent);
+        XCTAssertEqualObjects(newContent, c);
+        
+        blockCalled = YES;
+    }];
+    
+    XCTAssertNotNil(token);
+    
+    [store dispatch:action];
+    XCTAssertTrue(blockCalled);
+}
+
+- (void)testUnsubscribe {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+    SetContentAction *const action = [[SetContentAction alloc] initWithContent:@"Hello"];
+
+    __block BOOL blockCalled = NO;
+    id const token = [store subscribe:^(id<MUKContent> _Nullable oldContent, id<MUKContent> _Nullable newContent)
+    {
+        blockCalled = YES;
+    }];
+    
+    XCTAssertNotNil(token);
+    [store unsubscribe:token];
+    
+    [store dispatch:action];
+    XCTAssertFalse(blockCalled);
 }
 
 @end

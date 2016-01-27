@@ -14,6 +14,7 @@
 		06CA014D1C57CA000062B924 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06CA014C1C57CA000062B924 /* Assets.xcassets */; };
 		06CA01501C57CA000062B924 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06CA014E1C57CA000062B924 /* LaunchScreen.storyboard */; };
 		06CA015B1C57CA000062B924 /* MUKContentReduxExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA015A1C57CA000062B924 /* MUKContentReduxExampleTests.m */; };
+		06CA01671C58BC320062B924 /* TestRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01661C58BC320062B924 /* TestRedux.m */; };
 		11378457610909CB08B38CE6 /* libPods-MUKContentReduxExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2AF1FAB528B3397136F4AF /* libPods-MUKContentReduxExampleTests.a */; };
 		A224F8F0F93AE1B1DC9E28C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D638BB2D934005D01D7089 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,8 @@
 		06CA01561C57CA000062B924 /* MUKContentReduxExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MUKContentReduxExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06CA015A1C57CA000062B924 /* MUKContentReduxExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKContentReduxExampleTests.m; sourceTree = "<group>"; };
 		06CA015C1C57CA000062B924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06CA01651C58BC320062B924 /* TestRedux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestRedux.h; sourceTree = "<group>"; };
+		06CA01661C58BC320062B924 /* TestRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRedux.m; sourceTree = "<group>"; };
 		467DEC05E8515E9C5149712F /* Pods-MUKContentReduxExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		49674A7DC2F00F6DBBD4C1D3 /* Pods-MUKContentReduxExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		74D638BB2D934005D01D7089 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +120,8 @@
 		06CA01591C57CA000062B924 /* MUKContentReduxExampleTests */ = {
 			isa = PBXGroup;
 			children = (
+				06CA01651C58BC320062B924 /* TestRedux.h */,
+				06CA01661C58BC320062B924 /* TestRedux.m */,
 				06CA015A1C57CA000062B924 /* MUKContentReduxExampleTests.m */,
 				06CA015C1C57CA000062B924 /* Info.plist */,
 			);
@@ -352,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06CA01671C58BC320062B924 /* TestRedux.m in Sources */,
 				06CA015B1C57CA000062B924 /* MUKContentReduxExampleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
