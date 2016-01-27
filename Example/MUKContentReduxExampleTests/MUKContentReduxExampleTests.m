@@ -7,33 +7,31 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <MUKContentRedux/MUKContentRedux.h>
+
+@interface IdentityReducer : NSObject <MUKContentReducer>
+@end
+
+@implementation IdentityReducer
+
+- (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
+{
+    return oldContent;
+}
+
+@end
+
+#pragma mark -
 
 @interface MUKContentReduxExampleTests : XCTestCase
-
 @end
 
 @implementation MUKContentReduxExampleTests
 
-- (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testExample {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+- (void)testInitialization {
+    IdentityReducer *const reducer = [[IdentityReducer alloc] init];
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:reducer];
+    XCTAssertEqualObjects(reducer, store.reducer);
 }
 
 @end
