@@ -1,0 +1,8 @@
+pod "MUKContentRedux", :path => "../"
+pod 'MUKContentFetch'
+pod 'MUKDataSource'
+pod 'MUKPullToRevealControl'
+
+target "MUKContentReduxExampleTests", :exclusive => false do
+  pod "MUKContentRedux", :path => "../"
+end

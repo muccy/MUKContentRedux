@@ -1,0 +1,610 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06CA01421C57CA000062B924 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01411C57CA000062B924 /* main.m */; };
+		06CA01451C57CA000062B924 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01441C57CA000062B924 /* AppDelegate.m */; };
+		06CA014B1C57CA000062B924 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06CA01491C57CA000062B924 /* Main.storyboard */; };
+		06CA014D1C57CA000062B924 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 06CA014C1C57CA000062B924 /* Assets.xcassets */; };
+		06CA01501C57CA000062B924 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06CA014E1C57CA000062B924 /* LaunchScreen.storyboard */; };
+		06CA015B1C57CA000062B924 /* MUKContentReduxExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA015A1C57CA000062B924 /* MUKContentReduxExampleTests.m */; };
+		06CA01671C58BC320062B924 /* TestRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01661C58BC320062B924 /* TestRedux.m */; };
+		06CA016B1C58BF5F0062B924 /* CounterRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA016A1C58BF5F0062B924 /* CounterRedux.m */; };
+		06CA016E1C58C4290062B924 /* CounterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA016D1C58C4290062B924 /* CounterViewController.m */; };
+		06CA01721C58CA360062B924 /* RemoteListRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01711C58CA360062B924 /* RemoteListRedux.m */; };
+		06CA01751C58D32B0062B924 /* RemoteListItemsFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01741C58D32B0062B924 /* RemoteListItemsFetch.m */; };
+		06CA01781C58D89F0062B924 /* RemoteListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01771C58D89F0062B924 /* RemoteListDataSource.m */; };
+		06CA017B1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA017A1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m */; };
+		06CA017E1C58D9150062B924 /* RemoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA017D1C58D9150062B924 /* RemoteListViewController.m */; };
+		11378457610909CB08B38CE6 /* libPods-MUKContentReduxExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2AF1FAB528B3397136F4AF /* libPods-MUKContentReduxExampleTests.a */; };
+		A224F8F0F93AE1B1DC9E28C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D638BB2D934005D01D7089 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		06CA01571C57CA000062B924 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 06CA01351C57C9FF0062B924 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 06CA013C1C57CA000062B924;
+			remoteInfo = MUKContentReduxExample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		06CA013D1C57CA000062B924 /* MUKContentReduxExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MUKContentReduxExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		06CA01411C57CA000062B924 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		06CA01431C57CA000062B924 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		06CA01441C57CA000062B924 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		06CA014A1C57CA000062B924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		06CA014C1C57CA000062B924 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		06CA014F1C57CA000062B924 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		06CA01511C57CA000062B924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06CA01561C57CA000062B924 /* MUKContentReduxExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MUKContentReduxExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		06CA015A1C57CA000062B924 /* MUKContentReduxExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MUKContentReduxExampleTests.m; sourceTree = "<group>"; };
+		06CA015C1C57CA000062B924 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		06CA01651C58BC320062B924 /* TestRedux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestRedux.h; sourceTree = "<group>"; };
+		06CA01661C58BC320062B924 /* TestRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRedux.m; sourceTree = "<group>"; };
+		06CA01691C58BF5F0062B924 /* CounterRedux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounterRedux.h; sourceTree = "<group>"; };
+		06CA016A1C58BF5F0062B924 /* CounterRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterRedux.m; sourceTree = "<group>"; };
+		06CA016C1C58C4290062B924 /* CounterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounterViewController.h; sourceTree = "<group>"; };
+		06CA016D1C58C4290062B924 /* CounterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterViewController.m; sourceTree = "<group>"; };
+		06CA01701C58CA360062B924 /* RemoteListRedux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListRedux.h; sourceTree = "<group>"; };
+		06CA01711C58CA360062B924 /* RemoteListRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListRedux.m; sourceTree = "<group>"; };
+		06CA01731C58D32B0062B924 /* RemoteListItemsFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListItemsFetch.h; sourceTree = "<group>"; };
+		06CA01741C58D32B0062B924 /* RemoteListItemsFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListItemsFetch.m; sourceTree = "<group>"; };
+		06CA01761C58D89F0062B924 /* RemoteListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListDataSource.h; sourceTree = "<group>"; };
+		06CA01771C58D89F0062B924 /* RemoteListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListDataSource.m; sourceTree = "<group>"; };
+		06CA01791C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListLoadMoreTableViewCell.h; sourceTree = "<group>"; };
+		06CA017A1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListLoadMoreTableViewCell.m; sourceTree = "<group>"; };
+		06CA017C1C58D9150062B924 /* RemoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListViewController.h; sourceTree = "<group>"; };
+		06CA017D1C58D9150062B924 /* RemoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListViewController.m; sourceTree = "<group>"; };
+		467DEC05E8515E9C5149712F /* Pods-MUKContentReduxExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.release.xcconfig"; sourceTree = "<group>"; };
+		49674A7DC2F00F6DBBD4C1D3 /* Pods-MUKContentReduxExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
+		74D638BB2D934005D01D7089 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		943C159E8AE214FF6709E1B9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		9F2AF1FAB528B3397136F4AF /* libPods-MUKContentReduxExampleTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MUKContentReduxExampleTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E1B92B2DCC1B3B249EEC83A7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		06CA013A1C57CA000062B924 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A224F8F0F93AE1B1DC9E28C1 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06CA01531C57CA000062B924 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11378457610909CB08B38CE6 /* libPods-MUKContentReduxExampleTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		06CA01341C57C9FF0062B924 = {
+			isa = PBXGroup;
+			children = (
+				06CA013F1C57CA000062B924 /* MUKContentReduxExample */,
+				06CA01591C57CA000062B924 /* MUKContentReduxExampleTests */,
+				06CA013E1C57CA000062B924 /* Products */,
+				FF0B94F34AC5756B16C1E9C7 /* Pods */,
+				47A22B3A2684D91A6573F604 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		06CA013E1C57CA000062B924 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				06CA013D1C57CA000062B924 /* MUKContentReduxExample.app */,
+				06CA01561C57CA000062B924 /* MUKContentReduxExampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		06CA013F1C57CA000062B924 /* MUKContentReduxExample */ = {
+			isa = PBXGroup;
+			children = (
+				06CA01431C57CA000062B924 /* AppDelegate.h */,
+				06CA01441C57CA000062B924 /* AppDelegate.m */,
+				06CA01681C58BF480062B924 /* Counter */,
+				06CA016F1C58CA1D0062B924 /* Remote List */,
+				06CA01491C57CA000062B924 /* Main.storyboard */,
+				06CA014C1C57CA000062B924 /* Assets.xcassets */,
+				06CA014E1C57CA000062B924 /* LaunchScreen.storyboard */,
+				06CA01511C57CA000062B924 /* Info.plist */,
+				06CA01401C57CA000062B924 /* Supporting Files */,
+			);
+			path = MUKContentReduxExample;
+			sourceTree = "<group>";
+		};
+		06CA01401C57CA000062B924 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				06CA01411C57CA000062B924 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		06CA01591C57CA000062B924 /* MUKContentReduxExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				06CA01651C58BC320062B924 /* TestRedux.h */,
+				06CA01661C58BC320062B924 /* TestRedux.m */,
+				06CA015A1C57CA000062B924 /* MUKContentReduxExampleTests.m */,
+				06CA015C1C57CA000062B924 /* Info.plist */,
+			);
+			path = MUKContentReduxExampleTests;
+			sourceTree = "<group>";
+		};
+		06CA01681C58BF480062B924 /* Counter */ = {
+			isa = PBXGroup;
+			children = (
+				06CA01691C58BF5F0062B924 /* CounterRedux.h */,
+				06CA016A1C58BF5F0062B924 /* CounterRedux.m */,
+				06CA016C1C58C4290062B924 /* CounterViewController.h */,
+				06CA016D1C58C4290062B924 /* CounterViewController.m */,
+			);
+			path = Counter;
+			sourceTree = "<group>";
+		};
+		06CA016F1C58CA1D0062B924 /* Remote List */ = {
+			isa = PBXGroup;
+			children = (
+				06CA01701C58CA360062B924 /* RemoteListRedux.h */,
+				06CA01711C58CA360062B924 /* RemoteListRedux.m */,
+				06CA01731C58D32B0062B924 /* RemoteListItemsFetch.h */,
+				06CA01741C58D32B0062B924 /* RemoteListItemsFetch.m */,
+				06CA01761C58D89F0062B924 /* RemoteListDataSource.h */,
+				06CA01771C58D89F0062B924 /* RemoteListDataSource.m */,
+				06CA01791C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.h */,
+				06CA017A1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m */,
+				06CA017C1C58D9150062B924 /* RemoteListViewController.h */,
+				06CA017D1C58D9150062B924 /* RemoteListViewController.m */,
+			);
+			path = "Remote List";
+			sourceTree = "<group>";
+		};
+		47A22B3A2684D91A6573F604 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74D638BB2D934005D01D7089 /* libPods.a */,
+				9F2AF1FAB528B3397136F4AF /* libPods-MUKContentReduxExampleTests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF0B94F34AC5756B16C1E9C7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E1B92B2DCC1B3B249EEC83A7 /* Pods.debug.xcconfig */,
+				943C159E8AE214FF6709E1B9 /* Pods.release.xcconfig */,
+				49674A7DC2F00F6DBBD4C1D3 /* Pods-MUKContentReduxExampleTests.debug.xcconfig */,
+				467DEC05E8515E9C5149712F /* Pods-MUKContentReduxExampleTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		06CA013C1C57CA000062B924 /* MUKContentReduxExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06CA015F1C57CA000062B924 /* Build configuration list for PBXNativeTarget "MUKContentReduxExample" */;
+			buildPhases = (
+				C32EAD144101AB440E8D35DB /* Check Pods Manifest.lock */,
+				06CA01391C57CA000062B924 /* Sources */,
+				06CA013A1C57CA000062B924 /* Frameworks */,
+				06CA013B1C57CA000062B924 /* Resources */,
+				6B4C119EABA86592CA71A0B4 /* Embed Pods Frameworks */,
+				F81CC0ADBEB8B3053AFB1769 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MUKContentReduxExample;
+			productName = MUKContentReduxExample;
+			productReference = 06CA013D1C57CA000062B924 /* MUKContentReduxExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		06CA01551C57CA000062B924 /* MUKContentReduxExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 06CA01621C57CA000062B924 /* Build configuration list for PBXNativeTarget "MUKContentReduxExampleTests" */;
+			buildPhases = (
+				BB8FE5948B87FDA140F6AAB4 /* Check Pods Manifest.lock */,
+				06CA01521C57CA000062B924 /* Sources */,
+				06CA01531C57CA000062B924 /* Frameworks */,
+				06CA01541C57CA000062B924 /* Resources */,
+				181779F12241D5C39C51E120 /* Embed Pods Frameworks */,
+				40193BF7AB6AE7335FF4DDB1 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				06CA01581C57CA000062B924 /* PBXTargetDependency */,
+			);
+			name = MUKContentReduxExampleTests;
+			productName = MUKContentReduxExampleTests;
+			productReference = 06CA01561C57CA000062B924 /* MUKContentReduxExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		06CA01351C57C9FF0062B924 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = MeLive;
+				TargetAttributes = {
+					06CA013C1C57CA000062B924 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+					06CA01551C57CA000062B924 = {
+						CreatedOnToolsVersion = 7.2;
+						TestTargetID = 06CA013C1C57CA000062B924;
+					};
+				};
+			};
+			buildConfigurationList = 06CA01381C57C9FF0062B924 /* Build configuration list for PBXProject "MUKContentReduxExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 06CA01341C57C9FF0062B924;
+			productRefGroup = 06CA013E1C57CA000062B924 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				06CA013C1C57CA000062B924 /* MUKContentReduxExample */,
+				06CA01551C57CA000062B924 /* MUKContentReduxExampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		06CA013B1C57CA000062B924 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06CA01501C57CA000062B924 /* LaunchScreen.storyboard in Resources */,
+				06CA014D1C57CA000062B924 /* Assets.xcassets in Resources */,
+				06CA014B1C57CA000062B924 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06CA01541C57CA000062B924 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		181779F12241D5C39C51E120 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		40193BF7AB6AE7335FF4DDB1 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B4C119EABA86592CA71A0B4 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB8FE5948B87FDA140F6AAB4 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C32EAD144101AB440E8D35DB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F81CC0ADBEB8B3053AFB1769 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		06CA01391C57CA000062B924 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06CA01451C57CA000062B924 /* AppDelegate.m in Sources */,
+				06CA01781C58D89F0062B924 /* RemoteListDataSource.m in Sources */,
+				06CA016E1C58C4290062B924 /* CounterViewController.m in Sources */,
+				06CA01721C58CA360062B924 /* RemoteListRedux.m in Sources */,
+				06CA01751C58D32B0062B924 /* RemoteListItemsFetch.m in Sources */,
+				06CA017E1C58D9150062B924 /* RemoteListViewController.m in Sources */,
+				06CA01421C57CA000062B924 /* main.m in Sources */,
+				06CA017B1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m in Sources */,
+				06CA016B1C58BF5F0062B924 /* CounterRedux.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		06CA01521C57CA000062B924 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06CA01671C58BC320062B924 /* TestRedux.m in Sources */,
+				06CA015B1C57CA000062B924 /* MUKContentReduxExampleTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		06CA01581C57CA000062B924 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 06CA013C1C57CA000062B924 /* MUKContentReduxExample */;
+			targetProxy = 06CA01571C57CA000062B924 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		06CA01491C57CA000062B924 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				06CA014A1C57CA000062B924 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		06CA014E1C57CA000062B924 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				06CA014F1C57CA000062B924 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		06CA015D1C57CA000062B924 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		06CA015E1C57CA000062B924 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		06CA01601C57CA000062B924 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1B92B2DCC1B3B249EEC83A7 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MUKContentReduxExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = it.melive.mukit.MUKContentReduxExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		06CA01611C57CA000062B924 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 943C159E8AE214FF6709E1B9 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = MUKContentReduxExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = it.melive.mukit.MUKContentReduxExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		06CA01631C57CA000062B924 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49674A7DC2F00F6DBBD4C1D3 /* Pods-MUKContentReduxExampleTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MUKContentReduxExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = it.melive.mukit.MUKContentReduxExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MUKContentReduxExample.app/MUKContentReduxExample";
+			};
+			name = Debug;
+		};
+		06CA01641C57CA000062B924 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 467DEC05E8515E9C5149712F /* Pods-MUKContentReduxExampleTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = MUKContentReduxExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = it.melive.mukit.MUKContentReduxExampleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MUKContentReduxExample.app/MUKContentReduxExample";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		06CA01381C57C9FF0062B924 /* Build configuration list for PBXProject "MUKContentReduxExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06CA015D1C57CA000062B924 /* Debug */,
+				06CA015E1C57CA000062B924 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		06CA015F1C57CA000062B924 /* Build configuration list for PBXNativeTarget "MUKContentReduxExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06CA01601C57CA000062B924 /* Debug */,
+				06CA01611C57CA000062B924 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		06CA01621C57CA000062B924 /* Build configuration list for PBXNativeTarget "MUKContentReduxExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				06CA01631C57CA000062B924 /* Debug */,
+				06CA01641C57CA000062B924 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 06CA01351C57C9FF0062B924 /* Project object */;
+}
