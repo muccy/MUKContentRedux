@@ -21,6 +21,24 @@
 
 @end
 
+@implementation SetContentActionCreator
+
+- (instancetype)initWithContent:(id)content {
+    self = [super init];
+    if (self) {
+        _content = content;
+    }
+    
+    return self;
+}
+
+- (__kindof id<MUKContentAction> _Nullable)actionForContent:(__kindof id<MUKContent> _Nullable)content store:(MUKContentStore *)store
+{
+    return [[SetContentAction alloc] initWithContent:self.content];
+}
+
+@end
+
 @implementation Reducer
 
 - (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action

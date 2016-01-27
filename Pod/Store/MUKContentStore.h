@@ -28,12 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  Dispatch an action to update content
  @returns Dispatched action
  */
-- (__kindof id<MUKContentAction>)dispatch:(id<MUKContentAction>)action NS_REQUIRES_SUPER;
-/**
- Dispatch an action executing the actionCreator
- @return Dispatched action
- */
-- (nullable __kindof id<MUKContentAction>)dispatchActionCreator:(MUKContentActionCreator)actionCreator NS_REQUIRES_SUPER;
+- (nullable __kindof id<MUKContentAction>)dispatch:(id<MUKContentAction>)action NS_REQUIRES_SUPER;
 /// A subscriber is a block notified of store state changes
 typedef void (^MUKContentStoreSubscriber)(ContentType _Nullable oldContent, ContentType _Nullable newContent);
 /**

@@ -36,16 +36,11 @@
     MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
 
     id const newContent = @"Hello";
-    SetContentAction *const action = [[SetContentAction alloc] initWithContent:newContent];
+    SetContentActionCreator *const actionCreator = [[SetContentActionCreator alloc] initWithContent:newContent];
     
-    id<MUKContentAction> const dispatchedAction = [store dispatchActionCreator:^id<MUKContentAction> _Nullable(id<MUKContent>  _Nullable content, MUKContentStore * _Nonnull s)
-    {
-        XCTAssertEqualObjects(store, s);
-        XCTAssertNil(content);
-        return action;
-    }];
+    id<MUKContentAction> const dispatchedAction = [store dispatch:actionCreator];
     
-    XCTAssertEqualObjects(action, dispatchedAction);
+    XCTAssertFalse([dispatchedAction respondsToSelector:@selector(actionForContent:store:)]);
     XCTAssertEqualObjects(store.content, newContent);
 }
 

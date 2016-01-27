@@ -14,13 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MUKContentAction <NSObject>
 @end
 
+
 @class MUKContentStore;
 @protocol MUKContent;
 /**
- Action creator is a block which takes store and content state and returns the
+ Action creator is an entity which takes store and content state and returns the
  action.
  You can use action creators to dispatch to store async actions.
  */
-typedef id<MUKContentAction> _Nullable (^MUKContentActionCreator)(id<MUKContent> _Nullable content, MUKContentStore *store);
+@protocol MUKContentActionCreator <MUKContentAction>
+@required
+- (nullable __kindof id<MUKContentAction>)actionForContent:(nullable __kindof id<MUKContent>) content store:(MUKContentStore *)store;
+@end
 
 NS_ASSUME_NONNULL_END

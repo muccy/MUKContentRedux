@@ -14,6 +14,11 @@
 - (instancetype)initWithContent:(id)content;
 @end
 
+@interface SetContentActionCreator : NSObject <MUKContentActionCreator>
+@property (nonatomic, readonly) id content;
+- (instancetype)initWithContent:(id)content;
+@end
+
 
 @interface Reducer : NSObject <MUKContentReducer>
 @end

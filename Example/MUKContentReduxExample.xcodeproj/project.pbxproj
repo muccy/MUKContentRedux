@@ -16,6 +16,11 @@
 		06CA01671C58BC320062B924 /* TestRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01661C58BC320062B924 /* TestRedux.m */; };
 		06CA016B1C58BF5F0062B924 /* CounterRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA016A1C58BF5F0062B924 /* CounterRedux.m */; };
 		06CA016E1C58C4290062B924 /* CounterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA016D1C58C4290062B924 /* CounterViewController.m */; };
+		06CA01721C58CA360062B924 /* RemoteListRedux.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01711C58CA360062B924 /* RemoteListRedux.m */; };
+		06CA01751C58D32B0062B924 /* RemoteListItemsFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01741C58D32B0062B924 /* RemoteListItemsFetch.m */; };
+		06CA01781C58D89F0062B924 /* RemoteListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA01771C58D89F0062B924 /* RemoteListDataSource.m */; };
+		06CA017B1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA017A1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m */; };
+		06CA017E1C58D9150062B924 /* RemoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CA017D1C58D9150062B924 /* RemoteListViewController.m */; };
 		11378457610909CB08B38CE6 /* libPods-MUKContentReduxExampleTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F2AF1FAB528B3397136F4AF /* libPods-MUKContentReduxExampleTests.a */; };
 		A224F8F0F93AE1B1DC9E28C1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D638BB2D934005D01D7089 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -48,6 +53,16 @@
 		06CA016A1C58BF5F0062B924 /* CounterRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterRedux.m; sourceTree = "<group>"; };
 		06CA016C1C58C4290062B924 /* CounterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CounterViewController.h; sourceTree = "<group>"; };
 		06CA016D1C58C4290062B924 /* CounterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CounterViewController.m; sourceTree = "<group>"; };
+		06CA01701C58CA360062B924 /* RemoteListRedux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListRedux.h; sourceTree = "<group>"; };
+		06CA01711C58CA360062B924 /* RemoteListRedux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListRedux.m; sourceTree = "<group>"; };
+		06CA01731C58D32B0062B924 /* RemoteListItemsFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListItemsFetch.h; sourceTree = "<group>"; };
+		06CA01741C58D32B0062B924 /* RemoteListItemsFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListItemsFetch.m; sourceTree = "<group>"; };
+		06CA01761C58D89F0062B924 /* RemoteListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListDataSource.h; sourceTree = "<group>"; };
+		06CA01771C58D89F0062B924 /* RemoteListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListDataSource.m; sourceTree = "<group>"; };
+		06CA01791C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListLoadMoreTableViewCell.h; sourceTree = "<group>"; };
+		06CA017A1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListLoadMoreTableViewCell.m; sourceTree = "<group>"; };
+		06CA017C1C58D9150062B924 /* RemoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteListViewController.h; sourceTree = "<group>"; };
+		06CA017D1C58D9150062B924 /* RemoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteListViewController.m; sourceTree = "<group>"; };
 		467DEC05E8515E9C5149712F /* Pods-MUKContentReduxExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		49674A7DC2F00F6DBBD4C1D3 /* Pods-MUKContentReduxExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MUKContentReduxExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MUKContentReduxExampleTests/Pods-MUKContentReduxExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		74D638BB2D934005D01D7089 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +117,7 @@
 				06CA01431C57CA000062B924 /* AppDelegate.h */,
 				06CA01441C57CA000062B924 /* AppDelegate.m */,
 				06CA01681C58BF480062B924 /* Counter */,
+				06CA016F1C58CA1D0062B924 /* Remote List */,
 				06CA01491C57CA000062B924 /* Main.storyboard */,
 				06CA014C1C57CA000062B924 /* Assets.xcassets */,
 				06CA014E1C57CA000062B924 /* LaunchScreen.storyboard */,
@@ -139,6 +155,23 @@
 				06CA016D1C58C4290062B924 /* CounterViewController.m */,
 			);
 			path = Counter;
+			sourceTree = "<group>";
+		};
+		06CA016F1C58CA1D0062B924 /* Remote List */ = {
+			isa = PBXGroup;
+			children = (
+				06CA01701C58CA360062B924 /* RemoteListRedux.h */,
+				06CA01711C58CA360062B924 /* RemoteListRedux.m */,
+				06CA01731C58D32B0062B924 /* RemoteListItemsFetch.h */,
+				06CA01741C58D32B0062B924 /* RemoteListItemsFetch.m */,
+				06CA01761C58D89F0062B924 /* RemoteListDataSource.h */,
+				06CA01771C58D89F0062B924 /* RemoteListDataSource.m */,
+				06CA01791C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.h */,
+				06CA017A1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m */,
+				06CA017C1C58D9150062B924 /* RemoteListViewController.h */,
+				06CA017D1C58D9150062B924 /* RemoteListViewController.m */,
+			);
+			path = "Remote List";
 			sourceTree = "<group>";
 		};
 		47A22B3A2684D91A6573F604 /* Frameworks */ = {
@@ -361,8 +394,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				06CA01451C57CA000062B924 /* AppDelegate.m in Sources */,
+				06CA01781C58D89F0062B924 /* RemoteListDataSource.m in Sources */,
 				06CA016E1C58C4290062B924 /* CounterViewController.m in Sources */,
+				06CA01721C58CA360062B924 /* RemoteListRedux.m in Sources */,
+				06CA01751C58D32B0062B924 /* RemoteListItemsFetch.m in Sources */,
+				06CA017E1C58D9150062B924 /* RemoteListViewController.m in Sources */,
 				06CA01421C57CA000062B924 /* main.m in Sources */,
+				06CA017B1C58D8CC0062B924 /* RemoteListLoadMoreTableViewCell.m in Sources */,
 				06CA016B1C58BF5F0062B924 /* CounterRedux.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

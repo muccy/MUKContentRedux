@@ -8,6 +8,8 @@
 
 #import "MUKContentStore.h"
 
+#define DEBUG_LOG_DISPATCH  0
+
 @interface MUKContentStore ()
 @property (nonatomic, readwrite, nullable) id<MUKContent> content;
 @property (nonatomic, readwrite, copy, nullable) NSDictionary<NSUUID *, MUKContentStoreSubscriber> *subscribersMap;
@@ -34,24 +36,27 @@
 #pragma mark - Methods
 
 - (id<MUKContentAction>)dispatch:(id<MUKContentAction>)action {
+#if DEBUG_LOG_DISPATCH
+    NSLog(@"Dispatch action: %@", action);
+#endif
     id<MUKContent> const oldContent = self.content;
+    
+    // Manage action creators by digging inside of them
+    if ([action respondsToSelector:@selector(actionForContent:store:)]) {
+        id<MUKContentActionCreator> const actionCreator = (id<MUKContentActionCreator>)action;
+        id<MUKContentAction> const innerAction = [actionCreator actionForContent:oldContent store:self];
+        return innerAction ? [self dispatch:innerAction] : nil; // Recursion
+    }
+    
     self.content = [self.reducer contentFromContent:oldContent handlingAction:action];
+#if DEBUG_LOG_DISPATCH
+    NSLog(@"Content changed: (%@) ---> (%@)", oldContent, self.content);
+#endif
     
     [self.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
     {
         obj(oldContent, self.content);
     }];
-    
-    return action;
-}
-
-- (id<MUKContentAction>)dispatchActionCreator:(MUKContentActionCreator)actionCreator
-{
-    id<MUKContentAction> const action = actionCreator(self.content, self);
-    
-    if (action) {
-        return [self dispatch:action];
-    }
     
     return action;
 }
