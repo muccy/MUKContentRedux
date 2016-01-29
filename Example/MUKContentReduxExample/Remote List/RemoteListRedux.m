@@ -9,113 +9,69 @@
 #import "RemoteListRedux.h"
 #import "RemoteListItemsFetch.h"
 
-#pragma mark - Private Actions
-
-@interface RemoteListItemsRequestStartAction : NSObject <MUKContentAction>
-@property (nonatomic, readonly) BOOL loadMore;
-- (instancetype)initWithLoadMore:(BOOL)loadMore;
-@end
-
-@interface RemoteListItemsRequestFinishAction : NSObject <MUKContentAction>
-@property (nonatomic, readonly, nullable) NSArray *items;
-@property (nonatomic, readonly, nullable) NSError *error;
-
-- (instancetype)initWithItems:(nullable NSArray *)items error:(nullable NSError *)error;
-@end
-
-@interface RemoteListReceivedItemsActionCreator : NSObject <MUKContentActionCreator>
-@property (nonatomic, readonly) MUKContentFetchResponse *response;
-- (instancetype)initWithResponse:(MUKContentFetchResponse *)response;
-@end
-
 #pragma mark - Actions
 
-@implementation RemoteListRequestItemsActionCreator
+typedef NS_ENUM(NSInteger, ActionType) {
+    ActionTypeRequestStart,
+    ActionTypeRequestFinish
+};
 
-- (instancetype)initWithLoadMore:(BOOL)loadMore {
-    self = [super init];
-    if (self) {
-        _loadMore = loadMore;
-    }
-    
-    return self;
-}
+MUK_DECLARE_ACTION(RemoteList, ActionType)
 
-- (__kindof id<MUKContentAction> _Nullable)actionForContent:(RemoteListContent * _Nullable)content store:(MUKContentStore *)store
+@implementation RemoteListActionFactory
+
++ (id<MUKContentActionCreator>)requestItemsActionCreatorToLoadMore:(BOOL)loadMore
 {
-    if (content.status != RemoteListContentStatusIdle) {
-        return nil;
-    }
-    
-    RemoteListItemsFetch *const fetch = [[RemoteListItemsFetch alloc] init];
-    [fetch startWithCompletionHandler:^(MUKContentFetchResponse * _Nonnull response)
+    return [[MUKBlockContentActionCreator<RemoteListContent *> alloc] initWithBlock:^id<MUKContentAction> _Nullable(RemoteListContent * _Nullable content, MUKContentStore<RemoteListContent *> * _Nonnull store)
     {
-        RemoteListReceivedItemsActionCreator *actionCreator = [[RemoteListReceivedItemsActionCreator alloc] initWithResponse:response];
-        [store dispatch:actionCreator];
+        if (content.status != RemoteListContentStatusIdle) {
+            return nil;
+        }
+        
+        RemoteListItemsFetch *const fetch = [[RemoteListItemsFetch alloc] init];
+        [fetch startWithCompletionHandler:^(MUKContentFetchResponse * _Nonnull response)
+        {
+            [store dispatch:[RemoteListActionFactory itemsReceivedActionCreatorWithResponse:response]];
+        }];
+        
+        return [RemoteListActionFactory requestStartActionToLoadMore:loadMore];
     }];
-    
-    return [[RemoteListItemsRequestStartAction alloc] initWithLoadMore:self.loadMore];
 }
 
-@end
-
-@implementation RemoteListReceivedItemsActionCreator
-
-- (instancetype)initWithResponse:(MUKContentFetchResponse *)response {
-    self = [super init];
-    if (self) {
-        _response = response;
-    }
-    
-    return self;
++ (id<MUKContentAction>)requestStartActionToLoadMore:(BOOL)loadMore {
+    return [RemoteListAction actionWithType:ActionTypeRequestStart payload:@(loadMore)];
 }
 
-- (__kindof id<MUKContentAction> _Nullable)actionForContent:(RemoteListContent * _Nullable)content store:(MUKContentStore *)store
++ (id<MUKContentAction>)requestFinishActionWithItems:(nonnull NSArray *)items {
+    return [RemoteListAction actionWithType:ActionTypeRequestFinish payload:items];
+}
+
++ (id<MUKContentAction>)requestFinishActionWithError:(nullable NSError *)error {
+    return [RemoteListAction actionWithType:ActionTypeRequestFinish payload:error];
+}
+
++ (id<MUKContentActionCreator>)itemsReceivedActionCreatorWithResponse:(nonnull MUKContentFetchResponse *)response
 {
-    id<MUKContentAction> action;
-    
-    switch (self.response.resultType) {
-        case MUKContentFetchResultTypeSuccess:
-            action = [[RemoteListItemsRequestFinishAction alloc] initWithItems:self.response.object error:nil];
-            break;
-            
-        case MUKContentFetchResultTypeFailed:
-            action = [[RemoteListItemsRequestFinishAction alloc] initWithItems:nil error:self.response.error];
-            break;
-            
-        default:
-            action = nil;
-            break;
-    }
-    
-    return action;
-}
-
-@end
-
-@implementation RemoteListItemsRequestStartAction
-
-- (instancetype)initWithLoadMore:(BOOL)loadMore {
-    self = [super init];
-    if (self) {
-        _loadMore = loadMore;
-    }
-    
-    return self;
-}
-
-@end
-
-@implementation RemoteListItemsRequestFinishAction
-
-- (instancetype)initWithItems:(NSArray *)items error:(NSError *)error {
-    self = [super init];
-    if (self) {
-        _items = [items copy];
-        _error = error;
-    }
-    
-    return self;
+    return [[MUKBlockContentActionCreator<RemoteListContent *> alloc] initWithBlock:^id<MUKContentAction> _Nullable(RemoteListContent * _Nullable content, MUKContentStore<RemoteListContent *> * _Nonnull store)
+    {
+        id<MUKContentAction> action;
+        
+        switch (response.resultType) {
+            case MUKContentFetchResultTypeSuccess:
+                action = [RemoteListActionFactory requestFinishActionWithItems:response.object];
+                break;
+                
+            case MUKContentFetchResultTypeFailed:
+                action = [RemoteListActionFactory requestFinishActionWithError:response.error];
+                break;
+                
+            default:
+                action = nil;
+                break;
+        }
+        
+        return action;
+    }];
 }
 
 @end
@@ -124,34 +80,41 @@
 
 @implementation RemoteListReducer
 
-- (RemoteListContent * _Nullable)contentFromContent:(RemoteListContent * _Nullable)oldContent handlingAction:(id<MUKContentAction>)action
+- (RemoteListContent * _Nullable)contentFromContent:(RemoteListContent * _Nullable)oldContent handlingAction:(RemoteListAction *)action
 {
-    if ([action isKindOfClass:[RemoteListItemsRequestStartAction class]]) {
-        return [self setRefreshingAndLoadingMoreWithAction:action oldContent:oldContent];
-    }
-    else if ([action isKindOfClass:[RemoteListItemsRequestFinishAction class]])
-    {
-        return [self setItemsAndErrorWithAction:action oldContent:oldContent];
-    }
-    else {
-        return oldContent;
+    switch (action.type) {
+        case ActionTypeRequestStart:
+            return [self setRefreshingAndLoadingMoreWithAction:action oldContent:oldContent];
+            break;
+            
+        case ActionTypeRequestFinish:
+            return [self setItemsAndErrorWithAction:action oldContent:oldContent];
+            break;
+            
+        default:
+            return oldContent;
+            break;
     }
 }
 
-- (RemoteListContent *)setRefreshingAndLoadingMoreWithAction:(RemoteListItemsRequestStartAction *)action oldContent:(RemoteListContent *)oldContent
+- (RemoteListContent *)setRefreshingAndLoadingMoreWithAction:(RemoteListAction *)action oldContent:(RemoteListContent *)oldContent
 {
-    return [[RemoteListContent alloc] initWithItems:oldContent.items error:oldContent.error status:action.loadMore ? RemoteListContentStatusLoadingMore : RemoteListContentStatusRefreshing];
+    BOOL loadMore = [[action payloadIfIsKindOfClass:[NSNumber class]] boolValue];
+    return [[RemoteListContent alloc] initWithItems:oldContent.items error:oldContent.error status:loadMore ? RemoteListContentStatusLoadingMore : RemoteListContentStatusRefreshing];
 }
 
-- (RemoteListContent *)setItemsAndErrorWithAction:(RemoteListItemsRequestFinishAction *)action oldContent:(RemoteListContent *)oldContent
+- (RemoteListContent *)setItemsAndErrorWithAction:(RemoteListAction *)action oldContent:(RemoteListContent *)oldContent
 {
+    NSArray *const items = [action payloadIfIsKindOfClass:[NSArray class]];
+    NSError *const error = [action payloadIfIsKindOfClass:[NSError class]];
+    
     if (oldContent.status == RemoteListContentStatusRefreshing) {
-        return [[RemoteListContent alloc] initWithItems:action.items ?: oldContent.items error:action.error status:RemoteListContentStatusIdle];
+        return [[RemoteListContent alloc] initWithItems:items ?: oldContent.items error:error status:RemoteListContentStatusIdle];
     }
     else if (oldContent.status == RemoteListContentStatusLoadingMore) {
-        NSMutableArray *const items = [oldContent.items ?: @[] mutableCopy];
-        [items addObjectsFromArray:action.items ?: @[]];
-        return [[RemoteListContent alloc] initWithItems:items error:action.error status:RemoteListContentStatusIdle];
+        NSMutableArray *const newItems = [oldContent.items ?: @[] mutableCopy];
+        [newItems addObjectsFromArray:items ?: @[]];
+        return [[RemoteListContent alloc] initWithItems:newItems error:error status:RemoteListContentStatusIdle];
     }
     else {
         return oldContent;

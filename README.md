@@ -34,7 +34,7 @@ Those actions do not behave. The only carry the request to change state. This re
 ```objective-c
 @implementation CounterReducer
 
-- (nullable CounterContent)contentFromContent:(nullable CounterContent)oldContent handlingAction:(id<MUKContentAction>)action
+- (nullable CounterContent *)contentFromContent:(nullable CounterContent *)oldContent handlingAction:(id<MUKContentAction>)action
 {
     if ([action isKindOfClass:[CounterIncrementAction class]]) {
         return [[CounterContent alloc] initWithIntegerValue:oldContent.integerValue + 1];
@@ -67,7 +67,7 @@ You receive content updates by registering a block with `-subscribe:` method:
 
 ```objective-c
 __weak __typeof__(self) weakSelf = self;
-[self.store subscribe:^(CounterContent _Nullable oldContent, CounterContent _Nullable newContent) {
+[self.store subscribe:^(CounterContent * _Nullable oldContent, CounterContent * _Nullable newContent) {
     __strong __typeof__(weakSelf) strongSelf = weakSelf;
     [strongSelf updateUI];
 }];
@@ -82,7 +82,7 @@ Action creators could be handy to dispatch async actions to store:
 ```objective-c
 @implementation FetchInfosActionCreator
 
-- (nullable __kindof id<MUKContentAction>)actionForContent:(nullable ContentType)content store:(MUKContentStore *)store
+- (nullable __kindof id<MUKContentAction>)actionForContent:(nullable Content *)content store:(MUKContentStore *)store
 {
     [APIClient() fetch:^(NSData *data, NSError *error) {
         if (data) {

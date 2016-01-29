@@ -54,7 +54,7 @@
     [super viewDidAppear:animated];
     
     if (self.store.content.items.count == 0) {
-        [self.store dispatch:[RemoteListRequestItemsActionCreator new]];
+        [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:NO]];
     }
 }
 
@@ -76,7 +76,7 @@
 }
 
 - (void)refreshControlValueChanged:(UIRefreshControl *)refreshControl {
-    [self.store dispatch:[RemoteListRequestItemsActionCreator new]];
+    [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:NO]];
 }
 
 #pragma mark - Private — UI
@@ -99,7 +99,7 @@
             
             [alertController addAction:[UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
             {
-                [self.store dispatch:[[RemoteListRequestItemsActionCreator alloc] initWithLoadMore:oldContent.status == RemoteListContentStatusLoadingMore]];
+                [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:oldContent.status == RemoteListContentStatusLoadingMore]];
             }]];
             
             [self presentViewController:alertController animated:YES completion:nil];
@@ -130,7 +130,7 @@
     id const item = [self.dataSource itemAtIndexPath:indexPath];
     
     if ([item isKindOfClass:[NSNumber class]] && ![item boolValue]) {
-        [self.store dispatch:[[RemoteListRequestItemsActionCreator alloc] initWithLoadMore:YES]];
+        [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:YES]];
     }
 }
 

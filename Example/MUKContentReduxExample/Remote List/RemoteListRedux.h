@@ -14,17 +14,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Actions
 
-@interface RemoteListRequestItemsActionCreator : NSObject <MUKContentActionCreator>
-@property (nonatomic, readonly) BOOL loadMore;
-- (instancetype)initWithLoadMore:(BOOL)loadMore;
+@interface RemoteListActionFactory : NSObject
++ (id<MUKContentActionCreator>)requestItemsActionCreatorToLoadMore:(BOOL)loadMore;
 @end
-
 
 // Reducer
 
 @interface RemoteListReducer : NSObject <MUKContentReducer>
 @end
-
 
 // Content
 
