@@ -35,19 +35,21 @@
 
 #pragma mark - Methods
 
-- (id<MUKContentAction>)dispatch:(id<MUKContentAction>)action {
+- (id<MUKContentAction>)dispatch:(id<MUKContentDispatchable>)actionOrActionCreator
+{
 #if DEBUG_LOG_DISPATCH
     NSLog(@"Dispatch action: %@", action);
 #endif
     id<MUKContent> const oldContent = self.content;
     
     // Manage action creators by digging inside of them
-    if ([action respondsToSelector:@selector(actionForContent:store:)]) {
-        id<MUKContentActionCreator> const actionCreator = (id<MUKContentActionCreator>)action;
+    if ([actionOrActionCreator respondsToSelector:@selector(actionForContent:store:)]) {
+        id<MUKContentActionCreator> const actionCreator = (id<MUKContentActionCreator>)actionOrActionCreator;
         id<MUKContentAction> const innerAction = [actionCreator actionForContent:oldContent store:self];
         return innerAction ? [self dispatch:innerAction] : nil; // Recursion
     }
     
+    id<MUKContentAction> const action = (id<MUKContentAction>)actionOrActionCreator;
     self.content = [self.reducer contentFromContent:oldContent handlingAction:action];
 #if DEBUG_LOG_DISPATCH
     NSLog(@"Content changed: (%@) ---> (%@)", oldContent, self.content);

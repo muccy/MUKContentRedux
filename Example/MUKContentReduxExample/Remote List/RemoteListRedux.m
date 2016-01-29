@@ -41,7 +41,7 @@
     return self;
 }
 
-- (__kindof id<MUKContentAction> _Nullable)actionForContent:(RemoteListContent * _Nullable)content store:(MUKContentStore *)store
+- (id<MUKContentAction> _Nullable)actionForContent:(RemoteListContent * _Nullable)content store:(MUKContentStore *)store
 {
     if (content.status != RemoteListContentStatusIdle) {
         return nil;
@@ -70,7 +70,7 @@
     return self;
 }
 
-- (__kindof id<MUKContentAction> _Nullable)actionForContent:(RemoteListContent * _Nullable)content store:(MUKContentStore *)store
+- (id<MUKContentAction> _Nullable)actionForContent:(RemoteListContent * _Nullable)content store:(MUKContentStore *)store
 {
     id<MUKContentAction> action;
     

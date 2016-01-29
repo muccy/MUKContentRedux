@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param action      Action to apply to change oldContent
  @returns New content
  */
-- (nullable __kindof id<MUKContent>)contentFromContent:(nullable __kindof id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action;
+- (nullable id<MUKContent>)contentFromContent:(nullable id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action;
 @end
    
 NS_ASSUME_NONNULL_END

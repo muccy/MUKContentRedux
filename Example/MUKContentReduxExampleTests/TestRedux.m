@@ -32,7 +32,7 @@
     return self;
 }
 
-- (__kindof id<MUKContentAction> _Nullable)actionForContent:(__kindof id<MUKContent> _Nullable)content store:(MUKContentStore *)store
+- (id<MUKContentAction> _Nullable)actionForContent:(id<MUKContent> _Nullable)content store:(MUKContentStore *)store
 {
     return [[SetContentAction alloc] initWithContent:self.content];
 }

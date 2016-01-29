@@ -2,6 +2,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// Something which can be dispatched to a store
+@protocol MUKContentDispatchable <NSObject>
+@end
+
 /**
  Actions are payloads of information that send data from your application to your
  store. They are the only source of information for the store. Actions describe
@@ -11,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
  You should create classes which implement this empty protocol and dispatch their
  instances to store in order to change state.
  */
-@protocol MUKContentAction <NSObject>
+@protocol MUKContentAction <MUKContentDispatchable>
 @end
 
 
@@ -22,9 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
  action.
  You can use action creators to dispatch to store async actions.
  */
-@protocol MUKContentActionCreator <MUKContentAction>
+@protocol MUKContentActionCreator <MUKContentDispatchable>
 @required
-- (nullable __kindof id<MUKContentAction>)actionForContent:(nullable __kindof id<MUKContent>)content store:(MUKContentStore *)store;
+- (nullable id<MUKContentAction>)actionForContent:(nullable id<MUKContent>)content store:(MUKContentStore *)store;
 @end
 
 NS_ASSUME_NONNULL_END

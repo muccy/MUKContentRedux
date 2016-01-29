@@ -19,16 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
  • notifies state updates via -subscribe:
  • allows state to be updated via -dispatch:
  */
-@interface MUKContentStore<__covariant ContentType:__kindof id<MUKContent>> : NSObject
+@interface MUKContentStore<__covariant ContentType:id<MUKContent>> : NSObject
 /// The immutable stored state
 @property (nonatomic, readonly, nullable) ContentType content;
 /// The reducer that brings content and action to new content
-@property (nonatomic, readonly) __kindof id<MUKContentReducer> reducer;
+@property (nonatomic, readonly) id<MUKContentReducer> reducer;
 /**
  Dispatch an action to update content
+ @param actionOrActionCreator An action or an action creator to be evaluated to 
+ update store state
  @returns Dispatched action
  */
-- (nullable __kindof id<MUKContentAction>)dispatch:(id<MUKContentAction>)action NS_REQUIRES_SUPER;
+- (nullable id<MUKContentAction>)dispatch:(id<MUKContentDispatchable>)actionOrActionCreator NS_REQUIRES_SUPER;
 /// A subscriber is a block notified of store state changes
 typedef void (^MUKContentStoreSubscriber)(ContentType _Nullable oldContent, ContentType _Nullable newContent);
 /**
