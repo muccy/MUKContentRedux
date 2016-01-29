@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "MUKContentRedux"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "A structure to store content data in an immutable way using input actions."
   s.description      = <<-DESC
                         A store for immutable data which can be updated only applying actions. Inspired by ReSwift but very very less ambitious.
