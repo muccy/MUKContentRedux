@@ -7,6 +7,8 @@
 //
 
 #import "MUKContentStore.h"
+#import "MUKContentAction.h"
+#import "MUKContentReducer.h"
 
 #define DEBUG_LOG_DISPATCH  0
 

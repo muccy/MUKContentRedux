@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MUKContentRedux/MUKContentAction.h>
-#import <MUKContentRedux/MUKContent.h>
-#import <MUKContentRedux/MUKContentReducer.h>
+
+@protocol MUKContent, MUKContentDispatchable, MUKContentAction, MUKContentReducer;
 
 NS_ASSUME_NONNULL_BEGIN
 
