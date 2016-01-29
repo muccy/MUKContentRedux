@@ -22,7 +22,7 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         _store = [[MUKContentStore alloc] initWithReducer:[CounterReducer new]];
-        [self.store dispatch:[CounterInitAction new]];
+        [self.store dispatch:[CounterActionFactory initAction]];
     }
     
     return self;
@@ -55,11 +55,11 @@
 #pragma mark - Actions
 
 - (IBAction)incrementButtonTapped:(UIButton *)sender {
-    [self.store dispatch:[CounterIncrementAction new]];
+    [self.store dispatch:[CounterActionFactory incrementAction]];
 }
 
 - (IBAction)decrementButtonTapped:(UIButton *)sender {
-    [self.store dispatch:[CounterDecrementAction new]];
+    [self.store dispatch:[CounterActionFactory decrementAction]];
 }
 
 #pragma mark - Private

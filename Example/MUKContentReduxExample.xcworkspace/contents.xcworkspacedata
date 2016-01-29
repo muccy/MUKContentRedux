@@ -13,6 +13,9 @@
          <FileRef
             location = "group:MUKContentAction.h">
          </FileRef>
+         <FileRef
+            location = "group:MUKContentAction.m">
+         </FileRef>
       </Group>
       <Group
          location = "group:Content"
