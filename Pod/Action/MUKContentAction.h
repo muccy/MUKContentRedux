@@ -1,11 +1,7 @@
 #import <Foundation/Foundation.h>
-#import <MUKContentRedux/MUKContentStore.h>
+#import <MUKContentRedux/MUKContentDispatch.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-/// Something which can be dispatched to a store
-@protocol MUKContentDispatchable <NSObject>
-@end
 
 /**
  Actions are payloads of information that send data from your application to your
@@ -17,28 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
  instances to store in order to change state.
  */
 @protocol MUKContentAction <MUKContentDispatchable>
-@end
-
-
-/**
- Action creator is an entity which takes store and content state and returns the
- action.
- You can use action creators to dispatch to store async actions.
- */
-@protocol MUKContentActionCreator <MUKContentDispatchable>
-@required
-- (nullable id<MUKContentAction>)actionForContent:(nullable id<MUKContent>)content store:(MUKContentStore *)store;
-@end
-
-
-/// A concrete action creator which generates actions with a block
-@interface MUKBlockContentActionCreator<__covariant ContentType:id<MUKContent>> : NSObject <MUKContentActionCreator>
-/// Type of block used on -actionForContent:store: invocations
-typedef id<MUKContentAction> _Nullable (^MUKBlockContentActionCreatorBlock)(ContentType _Nullable content, MUKContentStore<ContentType> *store);
-/// Designated initializer
-- (instancetype)initWithBlock:(MUKBlockContentActionCreatorBlock)block NS_DESIGNATED_INITIALIZER;
-/// @returns A new action creator
-+ (instancetype)actionCreatorWithBlock:(MUKBlockContentActionCreatorBlock)block;
 @end
 
 NS_ASSUME_NONNULL_END
@@ -71,7 +45,7 @@ NS_ASSUME_NONNULL_END
     self = [super init]; \
     if (self) { \
         _type = type; \
-        _payload = [payload respondsToSelector:@selector(copy)] ? [payload copy] : payload; \
+        _payload = payload; \
     } \
     return self; \
 } \
@@ -90,6 +64,9 @@ NS_ASSUME_NONNULL_END
 - (nullable id)payloadIfIsKindOfClass:(nonnull Class)theClass { \
     return [self.payload isKindOfClass:theClass] ? self.payload : nil; \
 } \
+- (NSString *)description {\
+    return [NSString stringWithFormat:@"%@: type = %ld%@", NSStringFromClass([self class]), (long)self.type, self.payload ? [NSString stringWithFormat:@", payload = %@", self.payload] : @""];\
+}\
 @end
 
 /**
@@ -102,12 +79,9 @@ NS_ASSUME_NONNULL_END
  `type` is typed as you specify with theEnumType parameter (e.g.: if you define a
  `NS_ENUM(NSInteger, ActionType)` you can feed that one in order to get 
  `@property (nonatomic, readonly) ActionType type;`.
- `payload` is a nullable generic object which is copied on initialization if possible
- (e.g.: if you initialize the action with an `NSDictionary` that dictionary is 
- copied because it responds to -copy selector). Payload can be accessed directly
- or by testing class with -payloadIfIsKindOfClass: generated method. The property
- payloadDictionary is a shortend to test `NSDictionary` class and to cast returned
- payload.
+ Payload can be accessed directly or by testing class with -payloadIfIsKindOfClass: 
+ generated method. The property payloadDictionary is a shortend to test `NSDictionary`
+ class and to cast returned payload.
  */
 #define MUK_DECLARE_ACTION(theName, theEnumType) \
 MUK_DECLARE_ACTION_H(theName, theEnumType) \

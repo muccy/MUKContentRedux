@@ -1,14 +1,7 @@
-//
-//  MUKContentStore.h
-//  ProvaReducer
-//
-//  Created by Marco on 26/01/16.
-//  Copyright © 2016 MeLive. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
+#import <MUKContentRedux/MUKContentDispatch.h>
 
-@protocol MUKContent, MUKContentDispatchable, MUKContentAction, MUKContentReducer;
+@protocol MUKContent, MUKContentAction, MUKContentReducer;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) ContentType content;
 /// The reducer that brings content and action to new content
 @property (nonatomic, readonly) id<MUKContentReducer> reducer;
+/// The dispatcher of actions
+@property (nonatomic, copy) MUKContentDispatcher dispatcher;
 /**
  Dispatch an action to update content
  @param actionOrActionCreator An action or an action creator to be evaluated to 
@@ -46,6 +41,13 @@ typedef void (^MUKContentStoreSubscriber)(ContentType _Nullable oldContent, Cont
 
 /// Designated initializer
 - (instancetype)initWithReducer:(id<MUKContentReducer>)reducer NS_DESIGNATED_INITIALIZER;
+@end
+
+@interface MUKContentStore (Dispatcher)
+/// @returns A new default dispatcher
+- (MUKContentDispatcher)newDefaultDispatcher;
+/// @returns A dispatcher which encapsulates current one and logs dispatch infos
+- (MUKContentDispatcher)newLogDispatcher;
 @end
 
 NS_ASSUME_NONNULL_END

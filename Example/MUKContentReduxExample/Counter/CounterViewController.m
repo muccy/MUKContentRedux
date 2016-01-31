@@ -8,6 +8,7 @@
 
 #import "CounterViewController.h"
 #import "CounterRedux.h"
+#import <MUKContentRedux/MUKContentAction.h>
 
 @interface CounterViewController ()
 @property (nonatomic, readonly) MUKContentStore<CounterContent *> *store;
@@ -22,6 +23,8 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         _store = [[MUKContentStore alloc] initWithReducer:[CounterReducer new]];
+        // _store.dispatcher = [_store newLogDispatcher];
+
         [self.store dispatch:[CounterActionFactory initAction]];
     }
     
