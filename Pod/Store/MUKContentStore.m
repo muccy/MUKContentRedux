@@ -84,15 +84,17 @@
             action = (id<MUKContentAction>)dispatchableObject;
         }
         
-        // Create new content
-        id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
-        strongSelf.content = newContent;
+        if (action) {
+            // Create new content
+            id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
+            strongSelf.content = newContent;
         
-        // Inform subscribers
-        [strongSelf.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-        {
-            obj(oldContent, newContent);
-        }];
+            // Inform subscribers
+            [strongSelf.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
+            {
+                obj(oldContent, newContent);
+            }];
+        }
         
         return action;
     } copy];
@@ -110,7 +112,13 @@
         id<MUKContentAction> const action = originalDispatcher(dispatchableObject);
         id<MUKContent> const newContent = strongSelf.content;
         
-        NSLog(@"[%@] %@ --> %@", action, oldContent, newContent);
+        if (action) {
+            NSLog(@"[%@] %@ --> %@", action, oldContent, newContent);
+        }
+        else {
+            NSLog(@"[%@ has not produced an action]", dispatchableObject);
+        }
+        
         return action;
     } copy];
 }
