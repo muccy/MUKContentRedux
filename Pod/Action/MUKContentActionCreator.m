@@ -1,12 +1,4 @@
-//
-//  MUKContentAction.m
-//  
-//
-//  Created by Marco on 29/01/16.
-//
-//
-
-#import "MUKContentAction.h"
+#import "MUKContentActionCreator.h"
 
 @interface MUKBlockContentActionCreator ()
 @property (nonatomic, readonly, copy) MUKBlockContentActionCreatorBlock block;

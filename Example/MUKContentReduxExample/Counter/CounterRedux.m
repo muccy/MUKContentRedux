@@ -66,4 +66,8 @@ MUK_DECLARE_ACTION(Counter, ActionType);
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"%lu", (long)self.integerValue];
+}
+
 @end

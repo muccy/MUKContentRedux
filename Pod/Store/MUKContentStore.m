@@ -8,9 +8,8 @@
 
 #import "MUKContentStore.h"
 #import "MUKContentAction.h"
+#import "MUKContentActionCreator.h"
 #import "MUKContentReducer.h"
-
-#define DEBUG_LOG_DISPATCH  0
 
 @interface MUKContentStore ()
 @property (nonatomic, readwrite, nullable) id<MUKContent> content;
@@ -23,6 +22,7 @@
     self = [super init];
     if (self) {
         _reducer = reducer;
+        _dispatcher = [self newDefaultDispatcher];
     }
     
     return self;
@@ -37,32 +37,8 @@
 
 #pragma mark - Methods
 
-- (id<MUKContentAction>)dispatch:(id<MUKContentDispatchable>)actionOrActionCreator
-{
-#if DEBUG_LOG_DISPATCH
-    NSLog(@"Dispatch action: %@", action);
-#endif
-    id<MUKContent> const oldContent = self.content;
-    
-    // Manage action creators by digging inside of them
-    if ([actionOrActionCreator respondsToSelector:@selector(actionForContent:store:)]) {
-        id<MUKContentActionCreator> const actionCreator = (id<MUKContentActionCreator>)actionOrActionCreator;
-        id<MUKContentAction> const innerAction = [actionCreator actionForContent:oldContent store:self];
-        return innerAction ? [self dispatch:innerAction] : nil; // Recursion
-    }
-    
-    id<MUKContentAction> const action = (id<MUKContentAction>)actionOrActionCreator;
-    self.content = [self.reducer contentFromContent:oldContent handlingAction:action];
-#if DEBUG_LOG_DISPATCH
-    NSLog(@"Content changed: (%@) ---> (%@)", oldContent, self.content);
-#endif
-    
-    [self.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
-    {
-        obj(oldContent, self.content);
-    }];
-    
-    return action;
+- (id<MUKContentAction>)dispatch:(id<MUKContentDispatchable>)actionOrActionCreator {
+    return self.dispatcher(actionOrActionCreator);
 }
 
 - (id)subscribe:(MUKContentStoreSubscriber)subscriber {
@@ -82,6 +58,61 @@
         [subscribersMap removeObjectForKey:object];
         self.subscribersMap = subscribersMap;
     }
+}
+
+#pragma mark - Dispatcher
+
+- (MUKContentDispatcher)newDefaultDispatcher {
+    __weak __typeof__(self) weakSelf = self;
+    return [^id<MUKContentAction> (id<MUKContentDispatchable> _Nonnull dispatchableObject)
+    {
+        __strong __typeof__(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) {
+            return nil;
+        }
+        
+        id<MUKContent> const oldContent = strongSelf.content;
+        id<MUKContentAction> action;
+        
+        // Manage action creators by digging inside of them
+        if ([dispatchableObject respondsToSelector:@selector(actionForContent:store:)])
+        {
+            id<MUKContentActionCreator> const actionCreator = (id<MUKContentActionCreator>)dispatchableObject;
+            action = [actionCreator actionForContent:oldContent store:strongSelf];
+        }
+        else {
+            action = (id<MUKContentAction>)dispatchableObject;
+        }
+        
+        // Create new content
+        id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
+        strongSelf.content = newContent;
+        
+        // Inform subscribers
+        [strongSelf.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop)
+        {
+            obj(oldContent, newContent);
+        }];
+        
+        return action;
+    } copy];
+}
+
+- (MUKContentDispatcher)newLogDispatcher {
+    MUKContentDispatcher const originalDispatcher = [self.dispatcher copy];
+    
+    __weak __typeof__(self) weakSelf = self;
+    return [^id<MUKContentAction>(id<MUKContentDispatchable> dispatchableObject)
+    {
+        __strong __typeof__(weakSelf) strongSelf = weakSelf;
+        
+        id<MUKContent> const oldContent = strongSelf.content;
+        id<MUKContentAction> const action = originalDispatcher(dispatchableObject);
+        id<MUKContent> const newContent = strongSelf.content;
+        
+        NSLog(@"[%@] %@ --> %@", action, oldContent, newContent);
+        return action;
+    } copy];
 }
 
 @end
