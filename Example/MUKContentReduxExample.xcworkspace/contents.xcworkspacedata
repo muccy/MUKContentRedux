@@ -28,10 +28,13 @@
          </FileRef>
       </Group>
       <Group
-         location = "group:Dispatch"
-         name = "Dispatch">
+         location = "group:Middleware"
+         name = "Middleware">
          <FileRef
-            location = "group:MUKContentDispatch.h">
+            location = "group:/Users/muccy/Developer/Cocoa/Git/MUKit/GitHub/MUKContentRedux/Pod/Middleware/MUKContentMiddleware.h">
+         </FileRef>
+         <FileRef
+            location = "group:MUKContentMiddleware.m">
          </FileRef>
       </Group>
       <Group

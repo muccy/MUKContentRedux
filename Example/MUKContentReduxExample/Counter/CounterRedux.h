@@ -14,10 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 // Actions
 
 @interface CounterActionFactory : NSObject
-+ (id<MUKContentAction>)initAction;
 + (id<MUKContentAction>)incrementAction;
 + (id<MUKContentAction>)decrementAction;
 @end
+
 
 // Reducer
 
@@ -30,6 +30,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CounterContent : NSObject <MUKContent>
 @property (nonatomic, readonly) NSInteger integerValue;
 - (instancetype)initWithIntegerValue:(NSInteger)integerValue;
+@end
+
+
+// Middleware
+
+@interface CounterOddMiddleware : NSObject <MUKContentMiddleware>
+@end
+
+@interface CounterKeepPositiveMiddleware : NSObject <MUKContentMiddleware>
 @end
 
 NS_ASSUME_NONNULL_END

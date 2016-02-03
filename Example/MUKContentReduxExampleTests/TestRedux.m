@@ -19,6 +19,10 @@
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"Set content to: %@", self.content];
+}
+
 @end
 
 @implementation SetContentActionCreator
@@ -50,6 +54,91 @@
     else {
         return oldContent;
     }
+}
+
+@end
+
+@implementation Middleware
+
+- (MUKContentMiddlewareBlock)blockForDispatcher:(MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter
+{
+    return ^(MUKContentDispatcher next) {
+        return ^(id<MUKContentDispatchable> dispatchableObject) {
+            return next(dispatchableObject);
+        };
+    };
+}
+
+@end
+
+@implementation ActionChangerMiddleware
+
+- (instancetype)initWithString:(NSString *)string {
+    self = [super init];
+    if (self) {
+        _string = [string copy];
+    }
+    
+    return self;
+}
+
+- (instancetype)init {
+    return [self initWithString:nil];
+}
+
+- (MUKContentMiddlewareBlock)blockForDispatcher:(MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter
+{
+    // Don't retain "self"
+    NSString *const substitutionString = self.string;
+    
+    return ^(MUKContentDispatcher next) {
+        return ^(id<MUKContentDispatchable> dispatchableObject) {
+            id<MUKContentDispatchable> objectToDispatchToNext = dispatchableObject;
+            
+            if (substitutionString.length > 0) {
+                if ([dispatchableObject isKindOfClass:[SetContentAction class]])
+                {
+                    SetContentAction *const action = (SetContentAction *)dispatchableObject;
+                    
+                    if ([action.content isKindOfClass:[NSString class]]) {
+                        NSString *const string = action.content;
+                        NSString *const newString = [string stringByAppendingString:substitutionString];
+                        objectToDispatchToNext = [[SetContentAction alloc] initWithContent:newString];
+                    }
+                }
+            }
+
+            return next(objectToDispatchToNext);
+        };
+    };
+}
+
+@end
+
+@implementation DispatcherMiddleware
+
+- (MUKContentMiddlewareBlock)blockForDispatcher:(MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter
+{
+    return ^(MUKContentDispatcher next) {
+        return ^(id<MUKContentDispatchable> dispatchableObject) {
+            NSString *const string = (NSString *)getter();
+            SetContentAction *const action = (SetContentAction *)dispatchableObject;
+            BOOL passToNext = YES;
+            
+            if (dispatcher && [string isKindOfClass:[NSString class]] &&
+                [action isKindOfClass:[SetContentAction class]] &&
+                ![action.content hasPrefix:@"Goodbye"])
+            {
+                if ([string hasPrefix:@"Hello"]) {
+                    NSString *const newString = [string stringByReplacingOccurrencesOfString:@"Hello" withString:@"Goodbye"];
+                    passToNext = NO;
+                    dispatcher([[SetContentAction alloc] initWithContent:newString]);
+                }
+            }
+            
+            return passToNext ? next(dispatchableObject) : nil;
+        };
+    };
 }
 
 @end

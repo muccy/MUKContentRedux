@@ -16,13 +16,30 @@
 
 - (void)testInitialization {
     Reducer *const reducer = [[Reducer alloc] init];
-    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:reducer];
-    XCTAssertEqualObjects(reducer, store.reducer);
-    XCTAssertNil(store.content);
+    id const content = @"Hello";
+
+    {
+        Middleware *const middleware = [[Middleware alloc] init];
+        MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:reducer content:content middlewares:@[middleware]];
+        XCTAssertEqualObjects(reducer, store.reducer);
+        XCTAssertEqualObjects(content, store.content);
+    }
+    
+    {
+        MUKContentStore *const store = [MUKContentStore storeWithReducer:reducer content:content];
+        XCTAssertEqualObjects(reducer, store.reducer);
+        XCTAssertEqualObjects(content, store.content);
+    }
+    
+    {
+        MUKContentStore *const store = [MUKContentStore storeWithReducer:reducer];
+        XCTAssertEqualObjects(reducer, store.reducer);
+        XCTAssertNil(store.content);
+    }
 }
 
 - (void)testDispatch {
-    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+    MUKContentStore *const store = [MUKContentStore storeWithReducer:[Reducer new]];
     
     id const newContent = @"Hello";
     SetContentAction *const action = [[SetContentAction alloc] initWithContent:newContent];
@@ -33,7 +50,7 @@
 }
 
 - (void)testDispatchWithCreator {
-    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+    MUKContentStore *const store = [MUKContentStore storeWithReducer:[Reducer new]];
 
     id const newContent = @"Hello";
     SetContentActionCreator *const actionCreator = [[SetContentActionCreator alloc] initWithContent:newContent];
@@ -45,7 +62,7 @@
 }
 
 - (void)testSubscribe {
-    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+    MUKContentStore *const store = [MUKContentStore storeWithReducer:[Reducer new]];
 
     id const newContent = @"Hello";
     SetContentAction *const action = [[SetContentAction alloc] initWithContent:newContent];
@@ -66,7 +83,7 @@
 }
 
 - (void)testUnsubscribe {
-    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new]];
+    MUKContentStore *const store = [MUKContentStore storeWithReducer:[Reducer new]];
     SetContentAction *const action = [[SetContentAction alloc] initWithContent:@"Hello"];
 
     __block BOOL blockCalled = NO;
@@ -80,6 +97,23 @@
     
     [store dispatch:action];
     XCTAssertFalse(blockCalled);
+}
+
+- (void)testMiddlewareWhichChangesAction {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new] content:(id)@"No" middlewares:@[ [[ActionChangerMiddleware alloc] initWithString:@" World"], [Middleware new] ]];
+    XCTAssertEqualObjects(store.content, @"No");
+    
+    [store dispatch:[[SetContentAction alloc] initWithContent:@"Hello"]];
+    XCTAssertEqualObjects(store.content, @"Hello World");
+}
+
+- (void)testMiddlewareWhichDispatches {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new] content:(id)@"Hello" middlewares:@[ [DispatcherMiddleware new], [Middleware new] ]];
+    XCTAssertEqualObjects(store.content, @"Hello");
+    
+    id<MUKContentAction> const action = [store dispatch:[[SetContentAction alloc] initWithContent:@"Hello World"]];
+    XCTAssertEqualObjects(store.content, @"Goodbye");
+    XCTAssertNil(action);
 }
 
 @end

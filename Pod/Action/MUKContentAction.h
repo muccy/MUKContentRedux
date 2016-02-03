@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <MUKContentRedux/MUKContentDispatch.h>
+#import <MUKContentRedux/MUKContentMiddleware.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
