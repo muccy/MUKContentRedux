@@ -9,17 +9,12 @@
 #import "CounterRedux.h"
 
 typedef NS_ENUM(NSInteger, ActionType) {
-    ActionTypeInit,
     ActionTypeIncrement
 };
 
 MUK_DECLARE_ACTION(Counter, ActionType);
 
 @implementation CounterActionFactory
-
-+ (id<MUKContentAction>)initAction {
-    return [CounterAction actionWithType:ActionTypeInit];
-}
 
 + (id<MUKContentAction>)incrementAction {
     return [CounterAction actionWithType:ActionTypeIncrement payload:@1];
@@ -36,10 +31,6 @@ MUK_DECLARE_ACTION(Counter, ActionType);
 - (CounterContent * _Nullable)contentFromContent:(CounterContent * _Nullable)oldContent handlingAction:(CounterAction *)action
 {
     switch (action.type) {
-        case ActionTypeInit:
-            return [[CounterContent alloc] initWithIntegerValue:0];
-            break;
-            
         case ActionTypeIncrement: {
             NSInteger const increment = [[action payloadIfIsKindOfClass:[NSNumber class]] integerValue];
             return [[CounterContent alloc] initWithIntegerValue:oldContent.integerValue + increment];
@@ -68,6 +59,61 @@ MUK_DECLARE_ACTION(Counter, ActionType);
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%lu", (long)self.integerValue];
+}
+
+@end
+
+
+@implementation CounterOddMiddleware
+
+- (MUKContentMiddlewareBlock)blockForDispatcher:(MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter
+{
+    return ^(MUKContentDispatcher next) {
+        return ^(id<MUKContentDispatchable> dispatchableObject) {
+            id<MUKContentAction> const action = next(dispatchableObject);
+            
+            CounterContent *const content = getter();
+            if (content.integerValue % 2 != 0) {
+                NSLog(@"%li is odd!", (long)content.integerValue);
+            }
+            
+            return action;
+        };
+    };
+}
+
+@end
+
+
+@implementation CounterKeepPositiveMiddleware
+
+- (MUKContentMiddlewareBlock)blockForDispatcher:(MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter
+{
+    return ^(MUKContentDispatcher next) {
+        return ^(id<MUKContentDispatchable> dispatchableObject) {
+            BOOL invokeNext = YES;
+            
+            if ([dispatchableObject isKindOfClass:[CounterAction class]]) {
+                CounterAction *const action = (CounterAction *)dispatchableObject;
+                
+                if (action.type == ActionTypeIncrement && [[action payloadIfIsKindOfClass:[NSNumber class]] integerValue] < 0)
+                {
+                    CounterContent *const content = getter();
+                    if (content.integerValue <= 0) {
+                        invokeNext = NO;
+                    }
+                }
+            }
+            
+            id<MUKContentAction> const action = invokeNext ? next(dispatchableObject) : nil;
+            
+            if (!invokeNext) {
+                NSLog(@"Keeping positive :)");
+            }
+            
+            return action;
+        };
+    };
 }
 
 @end

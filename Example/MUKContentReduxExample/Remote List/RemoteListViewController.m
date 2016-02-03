@@ -22,7 +22,7 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _store = [[MUKContentStore alloc] initWithReducer:[RemoteListReducer new]];
+        _store = [MUKContentStore storeWithReducer:[RemoteListReducer new]];
         self.dataSource = [[RemoteListDataSource alloc] init];
     }
     

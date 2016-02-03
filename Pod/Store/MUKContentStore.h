@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-#import <MUKContentRedux/MUKContentDispatch.h>
+#import <MUKContentRedux/MUKContentMiddleware.h>
 
 @protocol MUKContent, MUKContentAction, MUKContentReducer;
 
@@ -17,7 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// The reducer that brings content and action to new content
 @property (nonatomic, readonly) id<MUKContentReducer> reducer;
 /// The dispatcher of actions
-@property (nonatomic, copy) MUKContentDispatcher dispatcher;
 /**
  Dispatch an action to update content
  @param actionOrActionCreator An action or an action creator to be evaluated to 
@@ -40,14 +39,13 @@ typedef void (^MUKContentStoreSubscriber)(ContentType _Nullable oldContent, Cont
 - (void)unsubscribe:(id)token NS_REQUIRES_SUPER;
 
 /// Designated initializer
-- (instancetype)initWithReducer:(id<MUKContentReducer>)reducer NS_DESIGNATED_INITIALIZER;
-@end
+- (instancetype)initWithReducer:(id<MUKContentReducer>)reducer content:(nullable id<MUKContent>)content middlewares:(nullable NSArray<id<MUKContentMiddleware>> *)middlewares NS_DESIGNATED_INITIALIZER;
 
-@interface MUKContentStore (Dispatcher)
-/// @returns A new default dispatcher
-- (MUKContentDispatcher)newDefaultDispatcher;
-/// @returns A dispatcher which encapsulates current one and logs dispatch infos
-- (MUKContentDispatcher)newLogDispatcher;
+/// @returns A new store with given reducer and no content and middleware
++ (instancetype)storeWithReducer:(id<MUKContentReducer>)reducer;
+
+/// @returns A new store with given reducer and content, but no middleware
++ (instancetype)storeWithReducer:(id<MUKContentReducer>)reducer content:(id<MUKContent>)content;
 @end
 
 NS_ASSUME_NONNULL_END
