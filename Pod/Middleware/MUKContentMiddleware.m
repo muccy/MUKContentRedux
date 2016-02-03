@@ -1,11 +1,3 @@
-//
-//  MUKContentMiddleware.m
-//  
-//
-//  Created by Marco on 03/02/16.
-//
-//
-
 #import "MUKContentMiddleware.h"
 
 @implementation MUKContentLoggerMiddleware

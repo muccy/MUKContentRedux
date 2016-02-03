@@ -14,6 +14,9 @@
             location = "group:MUKContentAction.h">
          </FileRef>
          <FileRef
+            location = "group:MUKContentAction.m">
+         </FileRef>
+         <FileRef
             location = "group:MUKContentActionCreator.h">
          </FileRef>
          <FileRef

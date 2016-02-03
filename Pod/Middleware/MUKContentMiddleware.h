@@ -1,11 +1,3 @@
-//
-//  MUKContentDispatch.h
-//  
-//
-//  Created by Marco on 31/01/16.
-//
-//
-
 #import <Foundation/Foundation.h>
 
 @protocol MUKContentAction, MUKContent;

@@ -22,7 +22,8 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _store = [[MUKContentStore alloc] initWithReducer:[CounterReducer new] content:[CounterContent new] middlewares:@[ [MUKContentLoggerMiddleware new], [CounterOddMiddleware new], [CounterKeepPositiveMiddleware new] ]];
+        _store = [MUKContentStore storeWithReducer:[CounterReducer new]];
+//        _store = [[MUKContentStore alloc] initWithReducer:[CounterReducer new] content:[CounterContent new] middlewares:@[ [MUKContentLoggerMiddleware new], [CounterOddMiddleware new], [CounterKeepPositiveMiddleware new] ]];
     }
     
     return self;
