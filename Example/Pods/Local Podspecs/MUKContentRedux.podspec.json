@@ -24,6 +24,10 @@
     {
       "name": "Logger",
       "source_files": "Pod/Logger/*.{h,m}"
+    },
+    {
+      "name": "Thunk",
+      "source_files": "Pod/Thunk/*.{h,m}"
     }
   ]
 }

@@ -67,8 +67,8 @@
 - (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
 {
     if ([oldContent isKindOfClass:[NSString class]]) {
-        NSString *const s = oldContent;
-        return [s stringByAppendingString:self.string];
+        NSString *const s = (NSString *)oldContent;
+        return (id)[s stringByAppendingString:self.string];
     }
     else {
         return oldContent;

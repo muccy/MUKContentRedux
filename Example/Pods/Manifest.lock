@@ -5,8 +5,10 @@ PODS:
   - MUKContentRedux (1.2.0):
     - MUKContentRedux/Core (= 1.2.0)
     - MUKContentRedux/Logger (= 1.2.0)
+    - MUKContentRedux/Thunk (= 1.2.0)
   - MUKContentRedux/Core (1.2.0)
   - MUKContentRedux/Logger (1.2.0)
+  - MUKContentRedux/Thunk (1.2.0)
   - MUKDataSource (2.5.7):
     - KVOController (~> 1.0.3)
     - MUKArrayDelta (~> 1.2.0)
@@ -27,7 +29,7 @@ SPEC CHECKSUMS:
   KVOController: 9fd8f0343670994e4b6f9f0b31f5a45663f3e1cf
   MUKArrayDelta: cbe29bd6da281e54b5bfb10132b2c6e81839e6b9
   MUKContentFetch: 0f15d161081e157b1885461a7b6079a62f1c59ef
-  MUKContentRedux: c8bd43ddd0aedcf720f7e199b82ad83f66e74512
+  MUKContentRedux: 0077d97e578466807d7a4fe292f7af5efc261d47
   MUKDataSource: c7d2dd9599880a1d4f67d3a08560fda7df41372a
   MUKPullToRevealControl: b62d9b555c9e458cf1ed5faecb2e230a7e82fb39
 

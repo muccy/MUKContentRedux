@@ -19,11 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// The dispatcher of actions
 /**
  Dispatch an action to update content
- @param actionOrActionCreator An action or an action creator to be evaluated to 
- update store state
- @returns Dispatched action
+ @param dispatchableObject Generally you dispatch an action, but middlewares may
+ extend the range of dispatchable objects.
+ @returns Generally the dispatched action, but middlewares may vary returned
+ object.
  */
-- (nullable id<MUKContentAction>)dispatch:(id<MUKContentDispatchable>)actionOrActionCreator NS_REQUIRES_SUPER;
+- (nullable id)dispatch:(id<MUKContentDispatchable>)dispatchableObject NS_REQUIRES_SUPER;
 /// A subscriber is a block notified of store state changes
 typedef void (^MUKContentStoreSubscriber)(ContentType _Nullable oldContent, ContentType _Nullable newContent);
 /**

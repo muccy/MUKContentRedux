@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "TestRedux.h"
+#import <MUKContentRedux/MUKContentThunkMiddleware.h>
 
 @interface MUKContentReduxExampleTests : XCTestCase
 @end
@@ -123,6 +124,36 @@
     
     [store dispatch:[[SetContentAction alloc] initWithContent:@"Ciao"]];
     XCTAssertEqualObjects(store.content, [@"Ciao" stringByAppendingString:appenderReducer.string]);
+}
+
+- (void)testThunkMiddleware {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new] content:(id)@"Hello" middlewares:@[ [Middleware new], [MUKContentThunkMiddleware new] ]];
+    XCTAssertEqualObjects(store.content, @"Hello");
+
+    [store dispatch:[MUKBlockContentThunk thunkWithBlock:^id _Nullable(MUKContentDispatcher  _Nullable dispatcher, MUKContentGetter _Nonnull getter)
+    {
+        return dispatcher([[SetContentAction alloc] initWithContent:@"Hello World"]);
+    }]];
+    
+    XCTAssertEqualObjects(store.content, @"Hello World");
+    
+    XCTestExpectation *const expectation = [self expectationWithDescription:@"Delayed dispatch"];
+    
+    [store dispatch:[MUKBlockContentThunk thunkWithBlock:^id _Nullable(MUKContentDispatcher  _Nullable dispatcher, MUKContentGetter _Nonnull getter)
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^
+        {
+            dispatcher([[SetContentAction alloc] initWithContent:@"Goodbye"]);
+            [expectation fulfill];
+        });
+        
+        return dispatcher([[SetContentAction alloc] initWithContent:@"..."]);;
+    }]];
+    
+    XCTAssertEqualObjects(store.content, @"...");
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    XCTAssertEqualObjects(store.content, @"Goodbye");
 }
 
 @end

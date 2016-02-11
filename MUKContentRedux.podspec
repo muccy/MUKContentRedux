@@ -20,4 +20,8 @@ Pod::Spec.new do |s|
   s.subspec "Logger" do |ss|
     ss.source_files = 'Pod/Logger/*.{h,m}'
   end
+  
+  s.subspec "Thunk" do |ss|
+    ss.source_files = 'Pod/Thunk/*.{h,m}'
+  end
 end

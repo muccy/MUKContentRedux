@@ -49,8 +49,8 @@
 
 #pragma mark - Methods
 
-- (id<MUKContentAction>)dispatch:(id<MUKContentDispatchable>)actionOrActionCreator {
-    return self.dispatcher(actionOrActionCreator);
+- (id)dispatch:(id<MUKContentDispatchable>)dispatchableObject {
+    return self.dispatcher(dispatchableObject);
 }
 
 - (id)subscribe:(MUKContentStoreSubscriber)subscriber {

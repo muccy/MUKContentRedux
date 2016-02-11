@@ -71,6 +71,16 @@
             location = "group:MUKContentLoggerMiddleware.m">
          </FileRef>
       </Group>
+      <Group
+         location = "group:Thunk"
+         name = "Thunk">
+         <FileRef
+            location = "group:MUKContentThunkMiddleware.h">
+         </FileRef>
+         <FileRef
+            location = "group:MUKContentThunkMiddleware.m">
+         </FileRef>
+      </Group>
    </Group>
    <FileRef
       location = "group:MUKContentReduxExample.xcodeproj">

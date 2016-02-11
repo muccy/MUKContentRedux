@@ -8,8 +8,12 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol MUKContentDispatchable <NSObject>
 @end
 
-/// A block which dispatches things
-typedef id<MUKContentAction> _Nullable (^MUKContentDispatcher)(id<MUKContentDispatchable> dispatchableObject);
+/**
+ A block which dispatches things.
+ Generally it returns the dispatched action, but middlewares may vary returned
+ object.
+ */
+typedef id _Nullable (^MUKContentDispatcher)(id<MUKContentDispatchable> dispatchableObject);
 
 /// A block which returns the content
 typedef id<MUKContent> _Nullable (^MUKContentGetter)(void);
