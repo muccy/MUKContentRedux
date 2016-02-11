@@ -12,6 +12,12 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '7.0'
   s.requires_arc = true
+  
+  s.subspec "Core" do |ss|
+    ss.source_files = 'Pod/Core/**/*.{h,m}'
+  end
 
-  s.source_files = 'Pod/**/*.{h,m}'
+  s.subspec "Logger" do |ss|
+    ss.source_files = 'Pod/Logger/*.{h,m}'
+  end
 end

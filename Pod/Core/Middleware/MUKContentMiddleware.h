@@ -39,10 +39,4 @@ typedef MUKContentDispatcher _Nonnull (^MUKContentMiddlewareBlock)(MUKContentDis
 - (MUKContentMiddlewareBlock)blockForDispatcher:(nullable MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter;
 @end
 
-
-/// A middleware which logs dispatches
-@interface MUKContentLoggerMiddleware : NSObject <MUKContentMiddleware>
-@end
-
-
 NS_ASSUME_NONNULL_END

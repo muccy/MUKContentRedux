@@ -1,1 +1,1 @@
-../../../../../Pod/MUKContentRedux.h
+../../../../../Pod/Core/MUKContentRedux.h

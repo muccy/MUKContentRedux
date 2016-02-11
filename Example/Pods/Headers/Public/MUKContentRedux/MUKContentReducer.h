@@ -1,1 +1,1 @@
-../../../../../Pod/Reducer/MUKContentReducer.h
+../../../../../Pod/Core/Reducer/MUKContentReducer.h
