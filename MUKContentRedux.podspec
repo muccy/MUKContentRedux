@@ -19,9 +19,11 @@ Pod::Spec.new do |s|
 
   s.subspec "Logger" do |ss|
     ss.source_files = 'Pod/Logger/*.{h,m}'
+    ss.dependency "#{s.name}/Core"
   end
   
   s.subspec "Thunk" do |ss|
     ss.source_files = 'Pod/Thunk/*.{h,m}'
+    ss.dependency "#{s.name}/Core"
   end
 end
