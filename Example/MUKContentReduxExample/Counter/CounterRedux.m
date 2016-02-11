@@ -12,25 +12,23 @@ typedef NS_ENUM(NSInteger, ActionType) {
     ActionTypeIncrement
 };
 
-MUK_DECLARE_ACTION(Counter, ActionType);
-
 @implementation CounterActionFactory
 
 + (id<MUKContentAction>)incrementAction {
-    return [CounterAction actionWithType:ActionTypeIncrement payload:@1];
+    return [MUKContentTypedAction actionWithType:ActionTypeIncrement payload:@1];
 }
 
 + (id<MUKContentAction>)decrementAction {
-    return [CounterAction actionWithType:ActionTypeIncrement payload:@(-1)];
+    return [MUKContentTypedAction actionWithType:ActionTypeIncrement payload:@(-1)];
 }
 
 @end
 
 @implementation CounterReducer
 
-- (CounterContent * _Nullable)contentFromContent:(CounterContent * _Nullable)oldContent handlingAction:(CounterAction *)action
+- (CounterContent * _Nullable)contentFromContent:(CounterContent * _Nullable)oldContent handlingAction:(MUKContentTypedAction *)action
 {
-    switch (action.type) {
+    switch ((ActionType)action.type) {
         case ActionTypeIncrement: {
             NSInteger const increment = [[action payloadIfIsKindOfClass:[NSNumber class]] integerValue];
             return [[CounterContent alloc] initWithIntegerValue:oldContent.integerValue + increment];
@@ -93,8 +91,8 @@ MUK_DECLARE_ACTION(Counter, ActionType);
         return ^(id<MUKContentDispatchable> dispatchableObject) {
             BOOL invokeNext = YES;
             
-            if ([dispatchableObject isKindOfClass:[CounterAction class]]) {
-                CounterAction *const action = (CounterAction *)dispatchableObject;
+            if ([dispatchableObject isKindOfClass:[MUKContentTypedAction class]]) {
+                MUKContentTypedAction *const action = (MUKContentTypedAction *)dispatchableObject;
                 
                 if (action.type == ActionTypeIncrement && [[action payloadIfIsKindOfClass:[NSNumber class]] integerValue] < 0)
                 {

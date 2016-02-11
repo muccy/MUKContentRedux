@@ -8,13 +8,15 @@
 
 #import "MUKContentStore.h"
 #import "MUKContentAction.h"
-#import "MUKContentActionCreator.h"
 #import "MUKContentReducer.h"
+
+NSString *const MUKContentStoreIllegalDispatchException = @"MUKContentStoreIllegalDispatchException";
 
 @interface MUKContentStore ()
 @property (nonatomic, readwrite, nullable) id<MUKContent> content;
 @property (nonatomic, readwrite, copy, nullable) NSDictionary<NSUUID *, MUKContentStoreSubscriber> *subscribersMap;
 @property (nonatomic, readonly, copy) MUKContentDispatcher dispatcher;
+@property (nonatomic, readwrite, getter=isDispatching) BOOL dispatching;
 @end
 
 @implementation MUKContentStore
@@ -49,8 +51,8 @@
 
 #pragma mark - Methods
 
-- (id<MUKContentAction>)dispatch:(id<MUKContentDispatchable>)actionOrActionCreator {
-    return self.dispatcher(actionOrActionCreator);
+- (id)dispatch:(id<MUKContentDispatchable>)dispatchableObject {
+    return self.dispatcher(dispatchableObject);
 }
 
 - (id)subscribe:(MUKContentStoreSubscriber)subscriber {
@@ -80,35 +82,26 @@
     __block MUKContentDispatcher dispatcher = ^(id<MUKContentDispatchable> _Nonnull dispatchableObject)
     {
         __strong __typeof__(weakSelf) strongSelf = weakSelf;
-        id<MUKContentAction> action;
+        id<MUKContentAction> action = (id<MUKContentAction>)dispatchableObject;
 
         if (strongSelf) {
+            if (strongSelf.isDispatching) {
+                [NSException raise:MUKContentStoreIllegalDispatchException format:@"Reducers may not dispatch actions"];
+            }
+            
             id<MUKContent> const oldContent = strongSelf.content;
-            
-            // Manage action creators by digging inside of them
-            if ([dispatchableObject respondsToSelector:@selector(actionForContent:store:)])
-            {
-                id<MUKContentActionCreator> const actionCreator = (id<MUKContentActionCreator>)dispatchableObject;
-                action = [actionCreator actionForContent:oldContent store:strongSelf];
-            }
-            else {
-                action = (id<MUKContentAction>)dispatchableObject;
-            }
-            
-            if (action) {
-                // Create new content
-                id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
-                strongSelf.content = newContent;
+
+            // Create new content
+            strongSelf.dispatching = YES;
+            id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
+            strongSelf.dispatching = NO;
+            strongSelf.content = newContent;
                 
-                // Inform subscribers
-                [strongSelf.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull subscriber, NSUInteger idx, BOOL * _Nonnull stop)
-                {
-                    subscriber(oldContent, newContent);
-                }];
-            }
-        }
-        else {
-            action = nil;
+            // Inform subscribers
+            [strongSelf.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull subscriber, NSUInteger idx, BOOL * _Nonnull stop)
+            {
+                subscriber(oldContent, newContent);
+            }];
         }
         
         return action;

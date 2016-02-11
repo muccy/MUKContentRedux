@@ -4,57 +4,75 @@
    <Group
       location = "group:../Pod"
       name = "Pod">
-      <FileRef
-         location = "group:MUKContentRedux.h">
-      </FileRef>
       <Group
-         location = "group:Action"
-         name = "Action">
+         location = "group:Core"
+         name = "Core">
+         <Group
+            location = "group:Action"
+            name = "Action">
+            <FileRef
+               location = "group:MUKContentAction.h">
+            </FileRef>
+            <FileRef
+               location = "group:MUKContentAction.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Content"
+            name = "Content">
+            <FileRef
+               location = "group:MUKContent.h">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Middleware"
+            name = "Middleware">
+            <FileRef
+               location = "group:MUKContentMiddleware.h">
+            </FileRef>
+         </Group>
          <FileRef
-            location = "group:MUKContentAction.h">
+            location = "group:MUKContentRedux.h">
+         </FileRef>
+         <Group
+            location = "group:Reducer"
+            name = "Reducer">
+            <FileRef
+               location = "group:MUKContentReducer.h">
+            </FileRef>
+            <FileRef
+               location = "group:MUKContentReducer.m">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Store"
+            name = "Store">
+            <FileRef
+               location = "group:MUKContentStore.h">
+            </FileRef>
+            <FileRef
+               location = "group:MUKContentStore.m">
+            </FileRef>
+         </Group>
+      </Group>
+      <Group
+         location = "group:Logger"
+         name = "Logger">
+         <FileRef
+            location = "group:MUKContentLoggerMiddleware.h">
          </FileRef>
          <FileRef
-            location = "group:MUKContentAction.m">
-         </FileRef>
-         <FileRef
-            location = "group:MUKContentActionCreator.h">
-         </FileRef>
-         <FileRef
-            location = "group:MUKContentActionCreator.m">
+            location = "group:MUKContentLoggerMiddleware.m">
          </FileRef>
       </Group>
       <Group
-         location = "group:Content"
-         name = "Content">
+         location = "group:Thunk"
+         name = "Thunk">
          <FileRef
-            location = "group:MUKContent.h">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:Middleware"
-         name = "Middleware">
-         <FileRef
-            location = "group:/Users/muccy/Developer/Cocoa/Git/MUKit/GitHub/MUKContentRedux/Pod/Middleware/MUKContentMiddleware.h">
+            location = "group:MUKContentThunkMiddleware.h">
          </FileRef>
          <FileRef
-            location = "group:MUKContentMiddleware.m">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:Reducer"
-         name = "Reducer">
-         <FileRef
-            location = "group:MUKContentReducer.h">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:Store"
-         name = "Store">
-         <FileRef
-            location = "group:MUKContentStore.h">
-         </FileRef>
-         <FileRef
-            location = "group:MUKContentStore.m">
+            location = "group:MUKContentThunkMiddleware.m">
          </FileRef>
       </Group>
    </Group>

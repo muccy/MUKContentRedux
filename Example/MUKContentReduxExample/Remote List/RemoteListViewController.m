@@ -19,10 +19,16 @@
 
 @implementation RemoteListViewController
 
+- (void)dealloc {
+    if (self.storeSubscription) {
+        [self.store unsubscribe:self.storeSubscription];
+    }
+}
+
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        _store = [MUKContentStore storeWithReducer:[RemoteListReducer new]];
+        _store = [[MUKContentStore alloc] initWithReducer:[RemoteListReducer new] content:nil middlewares:@[[MUKContentThunkMiddleware new]]];
         self.dataSource = [[RemoteListDataSource alloc] init];
     }
     
@@ -54,7 +60,7 @@
     [super viewDidAppear:animated];
     
     if (self.store.content.items.count == 0) {
-        [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:NO]];
+        [self.store dispatch:[RemoteListActionCreator requestItemsToLoadMore:NO]];
     }
 }
 
@@ -63,6 +69,7 @@
     
     if (self.storeSubscription) {
         [self.store unsubscribe:self.storeSubscription];
+        self.storeSubscription = nil;
     }
 }
 
@@ -76,7 +83,7 @@
 }
 
 - (void)refreshControlValueChanged:(UIRefreshControl *)refreshControl {
-    [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:NO]];
+    [self.store dispatch:[RemoteListActionCreator requestItemsToLoadMore:NO]];
 }
 
 #pragma mark - Private — UI
@@ -99,7 +106,7 @@
             
             [alertController addAction:[UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
             {
-                [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:oldContent.status == RemoteListContentStatusLoadingMore]];
+                [self.store dispatch:[RemoteListActionCreator requestItemsToLoadMore:oldContent.status == RemoteListContentStatusLoadingMore]];
             }]];
             
             [self presentViewController:alertController animated:YES completion:nil];
@@ -130,7 +137,7 @@
     id const item = [self.dataSource itemAtIndexPath:indexPath];
     
     if ([item isKindOfClass:[NSNumber class]] && ![item boolValue]) {
-        [self.store dispatch:[RemoteListActionFactory requestItemsActionCreatorToLoadMore:YES]];
+        [self.store dispatch:[RemoteListActionCreator requestItemsToLoadMore:YES]];
     }
 }
 

@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <MUKContentRedux/MUKContentRedux.h>
+#import <MUKContentRedux/MUKContentThunkMiddleware.h>
 #import <MUKContentFetch/MUKContentFetchResponse.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 // Actions
 
-@interface RemoteListActionFactory : NSObject
-+ (id<MUKContentActionCreator>)requestItemsActionCreatorToLoadMore:(BOOL)loadMore;
+@interface RemoteListActionCreator : NSObject
++ (id<MUKContentThunk>)requestItemsToLoadMore:(BOOL)loadMore;
 @end
 
 // Reducer

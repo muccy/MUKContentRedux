@@ -1,1 +1,1 @@
-../../../../../Pod/Content/MUKContent.h
+../../../../../Pod/Core/Content/MUKContent.h

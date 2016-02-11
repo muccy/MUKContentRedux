@@ -25,24 +25,6 @@
 
 @end
 
-@implementation SetContentActionCreator
-
-- (instancetype)initWithContent:(id)content {
-    self = [super init];
-    if (self) {
-        _content = content;
-    }
-    
-    return self;
-}
-
-- (id<MUKContentAction> _Nullable)actionForContent:(id<MUKContent> _Nullable)content store:(MUKContentStore *)store
-{
-    return [[SetContentAction alloc] initWithContent:self.content];
-}
-
-@end
-
 @implementation Reducer
 
 - (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
@@ -54,6 +36,38 @@
     else {
         return oldContent;
     }
+}
+
+@end
+
+@implementation AppenderReducer
+
+- (NSString *)string {
+    return @"_Hello";
+}
+
+- (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
+{
+    if ([oldContent isKindOfClass:[NSString class]]) {
+        NSString *const s = (NSString *)oldContent;
+        return (id)[s stringByAppendingString:self.string];
+    }
+    else {
+        return oldContent;
+    }
+}
+
+@end
+
+@implementation DispatchingReducer
+
+- (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
+{
+    if (self.store && [action isKindOfClass:[SetContentAction class]]) {
+        [self.store dispatch:[[SetContentAction alloc] initWithContent:@"BOOM"]];
+    }
+
+    return oldContent;
 }
 
 @end

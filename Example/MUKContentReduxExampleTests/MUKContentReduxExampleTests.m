@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "TestRedux.h"
+#import <MUKContentRedux/MUKContentThunkMiddleware.h>
 
 @interface MUKContentReduxExampleTests : XCTestCase
 @end
@@ -46,18 +47,6 @@
     id<MUKContentAction> const dispatchedAction = [store dispatch:action];
     
     XCTAssertEqualObjects(action, dispatchedAction);
-    XCTAssertEqualObjects(store.content, newContent);
-}
-
-- (void)testDispatchWithCreator {
-    MUKContentStore *const store = [MUKContentStore storeWithReducer:[Reducer new]];
-
-    id const newContent = @"Hello";
-    SetContentActionCreator *const actionCreator = [[SetContentActionCreator alloc] initWithContent:newContent];
-    
-    id<MUKContentAction> const dispatchedAction = [store dispatch:actionCreator];
-    
-    XCTAssertFalse([dispatchedAction respondsToSelector:@selector(actionForContent:store:)]);
     XCTAssertEqualObjects(store.content, newContent);
 }
 
@@ -114,6 +103,53 @@
     id<MUKContentAction> const action = [store dispatch:[[SetContentAction alloc] initWithContent:@"Hello World"]];
     XCTAssertEqualObjects(store.content, @"Goodbye");
     XCTAssertNil(action);
+}
+
+- (void)testCombineReducer {
+    AppenderReducer *const appenderReducer = [AppenderReducer new];
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[[MUKCombinedContentReducer alloc] initWithReducers:@[ [Reducer new], appenderReducer ]] content:(id)@"Goodbye" middlewares:nil];
+    XCTAssertEqualObjects(store.content, @"Goodbye");
+    
+    [store dispatch:[[SetContentAction alloc] initWithContent:@"Ciao"]];
+    XCTAssertEqualObjects(store.content, [@"Ciao" stringByAppendingString:appenderReducer.string]);
+}
+
+- (void)testThunkMiddleware {
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[Reducer new] content:(id)@"Hello" middlewares:@[ [Middleware new], [MUKContentThunkMiddleware new] ]];
+    XCTAssertEqualObjects(store.content, @"Hello");
+
+    [store dispatch:[MUKBlockContentThunk thunkWithBlock:^id _Nullable(MUKContentDispatcher  _Nullable dispatcher, MUKContentGetter _Nonnull getter)
+    {
+        return dispatcher([[SetContentAction alloc] initWithContent:@"Hello World"]);
+    }]];
+    
+    XCTAssertEqualObjects(store.content, @"Hello World");
+    
+    XCTestExpectation *const expectation = [self expectationWithDescription:@"Delayed dispatch"];
+    
+    [store dispatch:[MUKBlockContentThunk thunkWithBlock:^id _Nullable(MUKContentDispatcher  _Nullable dispatcher, MUKContentGetter _Nonnull getter)
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^
+        {
+            dispatcher([[SetContentAction alloc] initWithContent:@"Goodbye"]);
+            [expectation fulfill];
+        });
+        
+        return dispatcher([[SetContentAction alloc] initWithContent:@"..."]);;
+    }]];
+    
+    XCTAssertEqualObjects(store.content, @"...");
+    
+    [self waitForExpectationsWithTimeout:5.0 handler:nil];
+    XCTAssertEqualObjects(store.content, @"Goodbye");
+}
+
+- (void)testDispatchProtection {
+    DispatchingReducer *const reducer = [DispatchingReducer new];
+    MUKContentStore *const store = [MUKContentStore storeWithReducer:reducer];
+    reducer.store = store;
+
+    XCTAssertThrows([store dispatch:[[SetContentAction alloc] initWithContent:@"Hello"]]);
 }
 
 @end

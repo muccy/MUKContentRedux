@@ -1,4 +1,4 @@
-#import "MUKContentMiddleware.h"
+#import "MUKContentLoggerMiddleware.h"
 
 @implementation MUKContentLoggerMiddleware
 
