@@ -51,7 +51,7 @@ Those actions do not behave. The only carry the request to change state. This re
 Now you have everything you need to create your store inside your view controller:
 
 ```objective-c
-MUKContentStore<CounterContent *> *const store = [[MUKContentStore alloc] initWithReducer:[CounterReducer new]];
+MUKContentStore<CounterContent *> *const store = [MUKContentStore storeWithReducer:[CounterReducer new]];
 self.store = store;
 ```
 
@@ -75,34 +75,51 @@ __weak __typeof__(self) weakSelf = self;
 
 I encourage you to note that data flow is unidirectional and always predictable with this system: view controller dispatches an action to store; store asks reducer to apply action to existing content; reducer sends new content to store; store sends content update to subscribers. Each component is well isolated and side effects are minimal.
 
-Everything shines in this golden synchronous world. What about the real async world? This is a typical use case of action creators. An action creator is an object which conforms to `<MUKActionCreator>`, a protocol with only one required method: `-actionForContent:store:`. An action creator only creates a new action and it is used with `-dispatch:`. The store does not pass the action creator to reducer directly, but it extracts the returned action.
-    
-Action creators could be handy to dispatch async actions to store:
+Everything shines in this golden synchronous world. What about the real async world? This is a typical use case of thunks. A thunk is a function that wraps an expression to delay its evaluation. Normally store can only dispatch actions, but `MUKContentThunkMiddleware` extends this capability.
+
+You create store with this middleware:
 
 ```objective-c
-@implementation FetchInfosActionCreator
-
-- (nullable __kindof id<MUKContentAction>)actionForContent:(nullable Content *)content store:(MUKContentStore *)store
-{
-    [APIClient() fetch:^(NSData *data, NSError *error) {
-        if (data) {
-            [store dispatch:[[FetchSuccessAction alloc] initWithData:data]];
-        }
-        else {
-            [store dispatch:[[FetchFailAction alloc] initWithError:error]];
-        }
-    }];
-    
-    return [FetchStartAction new]; // e.g.: this will show spinner
-}
-
-@end
+MUKContentStore<CounterContent *> *const store = [[MUKContentStore alloc] initWithReducer:[CounterReducer new] content:nil middlewares:@[ [MUKContentThunkMiddleware new] ]];
+self.store = store;
 ```
 
-You view controller will use action creators transparently:
+Then you can dispatch every object which conforms to `MUKContentThunk` protocol. `MUKBlockContentThunk` is an handy thunk which wraps a block.
 
 ```objective-c
-[self.store dispatch:[FetchInfosActionCreator new]];
++ (id<MUKContentThunk>)requestInfos {
+    return [MUKBlockContentThunk thunkWithBlock:^id _Nullable(MUKContentDispatcher _Nullable dispatcher, MUKContentGetter _Nonnull getter)
+    {
+        Content *const content = getter();
+        
+        if (content.status == ContentStatusLoading) {
+            return nil; // Already loading
+        }
+        
+        // Start request (e.g.: this will show spinner)
+        id<MUKContentAction> const action = [ActionCreator requestStart];
+        dispatcher(action);
+        
+        [APIClient() fetch:^(NSData *data, NSError *error) {
+            // Dispatch actions to respond async fetch event
+            
+            if (data) {
+                dispatcher([ActionCreator requestFinished:data]);
+            }
+            else {
+                dispatcher([ActionCreator requestFailed:error]);
+            }
+        }];
+        
+        return action; // This is optional. You can also return other objects (e.g.: a token to cancel fetch)
+    }
+}
+```
+
+You view controller will use thunks transparently:
+
+```objective-c
+[self.store dispatch:[ActionCreator requestInfos]];
 ```
 
 ## Requirements
