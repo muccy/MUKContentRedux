@@ -8,7 +8,6 @@
 
 #import "MUKContentStore.h"
 #import "MUKContentAction.h"
-#import "MUKContentActionCreator.h"
 #import "MUKContentReducer.h"
 
 @interface MUKContentStore ()
@@ -80,35 +79,20 @@
     __block MUKContentDispatcher dispatcher = ^(id<MUKContentDispatchable> _Nonnull dispatchableObject)
     {
         __strong __typeof__(weakSelf) strongSelf = weakSelf;
-        id<MUKContentAction> action;
+        id<MUKContentAction> action = (id<MUKContentAction>)dispatchableObject;
 
         if (strongSelf) {
             id<MUKContent> const oldContent = strongSelf.content;
-            
-            // Manage action creators by digging inside of them
-            if ([dispatchableObject respondsToSelector:@selector(actionForContent:store:)])
-            {
-                id<MUKContentActionCreator> const actionCreator = (id<MUKContentActionCreator>)dispatchableObject;
-                action = [actionCreator actionForContent:oldContent store:strongSelf];
-            }
-            else {
-                action = (id<MUKContentAction>)dispatchableObject;
-            }
-            
-            if (action) {
-                // Create new content
-                id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
-                strongSelf.content = newContent;
+
+            // Create new content
+            id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
+            strongSelf.content = newContent;
                 
-                // Inform subscribers
-                [strongSelf.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull subscriber, NSUInteger idx, BOOL * _Nonnull stop)
-                {
-                    subscriber(oldContent, newContent);
-                }];
-            }
-        }
-        else {
-            action = nil;
+            // Inform subscribers
+            [strongSelf.subscribersMap.allValues enumerateObjectsUsingBlock:^(MUKContentStoreSubscriber _Nonnull subscriber, NSUInteger idx, BOOL * _Nonnull stop)
+            {
+                subscriber(oldContent, newContent);
+            }];
         }
         
         return action;

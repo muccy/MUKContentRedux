@@ -50,18 +50,6 @@
     XCTAssertEqualObjects(store.content, newContent);
 }
 
-- (void)testDispatchWithCreator {
-    MUKContentStore *const store = [MUKContentStore storeWithReducer:[Reducer new]];
-
-    id const newContent = @"Hello";
-    SetContentActionCreator *const actionCreator = [[SetContentActionCreator alloc] initWithContent:newContent];
-    
-    id<MUKContentAction> const dispatchedAction = [store dispatch:actionCreator];
-    
-    XCTAssertFalse([dispatchedAction respondsToSelector:@selector(actionForContent:store:)]);
-    XCTAssertEqualObjects(store.content, newContent);
-}
-
 - (void)testSubscribe {
     MUKContentStore *const store = [MUKContentStore storeWithReducer:[Reducer new]];
 
