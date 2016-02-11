@@ -21,8 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithContent:(id)content;
 @end
 
+#pragma mark -
+
 @interface Reducer : NSObject <MUKContentReducer>
 @end
+
+@interface AppenderReducer : NSObject <MUKContentReducer>
+@property (nonatomic, readonly) NSString *string;
+@end
+
+#pragma mark -
 
 @interface Middleware : NSObject <MUKContentMiddleware>
 @end

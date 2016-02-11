@@ -116,4 +116,13 @@
     XCTAssertNil(action);
 }
 
+- (void)testCombineReducer {
+    AppenderReducer *const appenderReducer = [AppenderReducer new];
+    MUKContentStore *const store = [[MUKContentStore alloc] initWithReducer:[[MUKCombinedContentReducer alloc] initWithReducers:@[ [Reducer new], appenderReducer ]] content:(id)@"Goodbye" middlewares:nil];
+    XCTAssertEqualObjects(store.content, @"Goodbye");
+    
+    [store dispatch:[[SetContentAction alloc] initWithContent:@"Ciao"]];
+    XCTAssertEqualObjects(store.content, [@"Ciao" stringByAppendingString:appenderReducer.string]);
+}
+
 @end

@@ -46,6 +46,9 @@
          <FileRef
             location = "group:MUKContentReducer.h">
          </FileRef>
+         <FileRef
+            location = "group:MUKContentReducer.m">
+         </FileRef>
       </Group>
       <Group
          location = "group:Store"

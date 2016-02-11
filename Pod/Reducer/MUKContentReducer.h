@@ -22,5 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nullable id<MUKContent>)contentFromContent:(nullable id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action;
 @end
+
+
+/// A reducer which combines other reducers
+@interface MUKCombinedContentReducer : NSObject <MUKContentReducer>
+- (instancetype)initWithReducers:(NSArray<id<MUKContentReducer>> *)reducers NS_DESIGNATED_INITIALIZER;
+@end
    
 NS_ASSUME_NONNULL_END

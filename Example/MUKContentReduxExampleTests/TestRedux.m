@@ -58,6 +58,25 @@
 
 @end
 
+@implementation AppenderReducer
+
+- (NSString *)string {
+    return @"_Hello";
+}
+
+- (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
+{
+    if ([oldContent isKindOfClass:[NSString class]]) {
+        NSString *const s = oldContent;
+        return [s stringByAppendingString:self.string];
+    }
+    else {
+        return oldContent;
+    }
+}
+
+@end
+
 @implementation Middleware
 
 - (MUKContentMiddlewareBlock)blockForDispatcher:(MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter
