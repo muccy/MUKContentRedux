@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *string;
 @end
 
+@interface DispatchingReducer : NSObject <MUKContentReducer>
+@property (nonatomic, weak) MUKContentStore *store;
+@end
+
 #pragma mark -
 
 @interface Middleware : NSObject <MUKContentMiddleware>

@@ -10,10 +10,13 @@
 #import "MUKContentAction.h"
 #import "MUKContentReducer.h"
 
+NSString *const MUKContentStoreIllegalDispatchException = @"MUKContentStoreIllegalDispatchException";
+
 @interface MUKContentStore ()
 @property (nonatomic, readwrite, nullable) id<MUKContent> content;
 @property (nonatomic, readwrite, copy, nullable) NSDictionary<NSUUID *, MUKContentStoreSubscriber> *subscribersMap;
 @property (nonatomic, readonly, copy) MUKContentDispatcher dispatcher;
+@property (nonatomic, readwrite, getter=isDispatching) BOOL dispatching;
 @end
 
 @implementation MUKContentStore
@@ -82,10 +85,16 @@
         id<MUKContentAction> action = (id<MUKContentAction>)dispatchableObject;
 
         if (strongSelf) {
+            if (strongSelf.isDispatching) {
+                [NSException raise:MUKContentStoreIllegalDispatchException format:@"Reducers may not dispatch actions"];
+            }
+            
             id<MUKContent> const oldContent = strongSelf.content;
 
             // Create new content
+            strongSelf.dispatching = YES;
             id<MUKContent> const newContent = [strongSelf.reducer contentFromContent:oldContent handlingAction:action];
+            strongSelf.dispatching = NO;
             strongSelf.content = newContent;
                 
             // Inform subscribers

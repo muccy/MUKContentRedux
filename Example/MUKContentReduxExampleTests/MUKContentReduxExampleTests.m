@@ -144,4 +144,12 @@
     XCTAssertEqualObjects(store.content, @"Goodbye");
 }
 
+- (void)testDispatchProtection {
+    DispatchingReducer *const reducer = [DispatchingReducer new];
+    MUKContentStore *const store = [MUKContentStore storeWithReducer:reducer];
+    reducer.store = store;
+
+    XCTAssertThrows([store dispatch:[[SetContentAction alloc] initWithContent:@"Hello"]]);
+}
+
 @end

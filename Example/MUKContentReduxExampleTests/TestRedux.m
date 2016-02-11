@@ -59,6 +59,19 @@
 
 @end
 
+@implementation DispatchingReducer
+
+- (id<MUKContent>)contentFromContent:(id<MUKContent>)oldContent handlingAction:(id<MUKContentAction>)action
+{
+    if (self.store && [action isKindOfClass:[SetContentAction class]]) {
+        [self.store dispatch:[[SetContentAction alloc] initWithContent:@"BOOM"]];
+    }
+
+    return oldContent;
+}
+
+@end
+
 @implementation Middleware
 
 - (MUKContentMiddlewareBlock)blockForDispatcher:(MUKContentDispatcher)dispatcher getter:(MUKContentGetter)getter

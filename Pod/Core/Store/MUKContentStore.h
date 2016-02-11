@@ -5,6 +5,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const MUKContentStoreIllegalDispatchException;
+
 /**
  The store has the following responsibilities:
  • holds and allows access to immutable content state;
@@ -21,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
  Dispatch an action to update content
  @param dispatchableObject Generally you dispatch an action, but middlewares may
  extend the range of dispatchable objects.
+ @throws MUKContentStoreIllegalDispatchException Reducers may not dispatch 
+ actions.
  @returns Generally the dispatched action, but middlewares may vary returned
  object.
  */
